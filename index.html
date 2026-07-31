@@ -4,118 +4,123 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <!-- Instalação de Meta Tags para Bloquear Cache em Desenvolvimento -->
+  <!-- Prevenção de Cache -->
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
 
-  <title>UniGames CRM - Gestão & Automação</title>
-  
-  <!-- Chave Anti-Cache no CSS (?v=1.0.1) -->
-  <link rel="stylesheet" href="style.css?v=1.0.1">
-  
-  <!-- Ícones Phosphor -->
+  <title>UniGames CRM - Painel de Controle</title>
+
+  <!-- Vinculação do CSS com versão anti-cache -->
+  <link rel="stylesheet" href="style.css?v=3.0.0">
+
+  <!-- Fonte e Ícones -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <script src="https://unpkg.com/@phosphor-icons/web"></script>
 </head>
 <body>
 
-  <!-- Menu Lateral / Sidebar -->
-  <aside class="sidebar">
-    <div class="brand">
-      <i class="ph ph-game-controller"></i>
-      <span>UniGames CRM</span>
-    </div>
-    <nav class="menu">
-      <a href="#" class="active"><i class="ph ph-squares-four"></i> Dashboard</a>
-      <a href="#"><i class="ph ph-users"></i> Clientes</a>
-      <a href="#"><i class="ph ph-shopping-cart"></i> Vendas (PDV)</a>
-      <a href="#"><i class="ph ph-file-arrow-up"></i> Importar Dados</a>
-      <a href="#"><i class="ph ph-chat-circle-dots"></i> Mensagens VIP</a>
-      <a href="#"><i class="ph ph-gear"></i> Configurações</a>
-    </nav>
-  </aside>
+  <div class="app-container">
+    <!-- Menu Lateral / Sidebar -->
+    <aside class="sidebar">
+      <div class="brand">
+        <i class="ph ph-game-controller"></i>
+        <span>UniGames CRM</span>
+      </div>
+      <nav class="menu">
+        <a href="#" class="active"><i class="ph ph-squares-four"></i> Dashboard</a>
+        <a href="#"><i class="ph ph-users"></i> Clientes</a>
+        <a href="#"><i class="ph ph-shopping-cart"></i> Vendas (PDV)</a>
+        <a href="#"><i class="ph ph-file-arrow-up"></i> Importar Dados</a>
+        <a href="#"><i class="ph ph-chat-circle-dots"></i> Mensagens VIP</a>
+        <a href="#"><i class="ph ph-gear"></i> Configurações</a>
+      </nav>
+    </aside>
 
-  <!-- Área Principal -->
-  <main class="main-content">
-    
-    <!-- Topbar Superior -->
-    <header class="topbar">
-      <div class="search-bar">
-        <i class="ph ph-magnifying-glass"></i>
-        <input type="text" placeholder="Buscar por cliente, PDV ou histórico...">
-      </div>
-      <div class="user-profile">
-        <i class="ph ph-bell icon-bell"></i>
-        <div class="avatar">LN</div>
-        <div class="user-info">
-          <span class="name">Leandro Neri</span>
-          <span class="role">Administrador</span>
-        </div>
-      </div>
-    </header>
-
-    <!-- Indicadores Chave (KPIs) -->
-    <section class="kpi-grid">
-      <div class="kpi-card">
-        <div class="kpi-icon blue"><i class="ph ph-currency-dollar"></i></div>
-        <div class="kpi-data">
-          <span class="title">Faturamento Total</span>
-          <h2>R$ 51.284,83</h2>
-          <span class="badge positive">+12.5% este mês</span>
-        </div>
-      </div>
-
-      <div class="kpi-card">
-        <div class="kpi-icon purple"><i class="ph ph-receipt"></i></div>
-        <div class="kpi-data">
-          <span class="title">Total de Vendas</span>
-          <h2>99 PDVs</h2>
-          <span class="badge neutral">70 Ativas</span>
-        </div>
-      </div>
-
-      <div class="kpi-card">
-        <div class="kpi-icon green"><i class="ph ph-chart-line-up"></i></div>
-        <div class="kpi-data">
-          <span class="title">Ticket Médio</span>
-          <h2>R$ 518,02</h2>
-          <span class="badge positive">+4.1% vs anterior</span>
-        </div>
-      </div>
-
-      <div class="kpi-card">
-        <div class="kpi-icon orange"><i class="ph ph-paper-plane-tilt"></i></div>
-        <div class="kpi-data">
-          <span class="title">Mensagens Disparadas</span>
-          <h2>342</h2>
-          <span class="badge positive">98% Entregues</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- Módulo 1: Upload de Relatórios / Importação -->
-    <section class="section-container">
-      <div class="section-header">
-        <div>
-          <h3><i class="ph ph-file-arrow-up"></i> Importação de Relatórios e PDVs</h3>
-          <p>Carregue suas planilhas (CSV, XLSX) ou arquivos do sistema para atualizar a base de vendas.</p>
-        </div>
-      </div>
+    <!-- Área Principal -->
+    <main class="main-content">
       
-      <div class="upload-zone" id="drop-zone">
-        <div class="upload-icon-wrapper">
-          <i class="ph ph-cloud-arrow-up"></i>
+      <!-- Topbar -->
+      <header class="topbar">
+        <div class="search-bar">
+          <i class="ph ph-magnifying-glass"></i>
+          <input type="text" placeholder="Buscar cliente, número de PDV ou transação...">
         </div>
-        <h4>Arraste seu arquivo para esta área</h4>
-        <p>Suporta arquivos de até 50MB (PDFs longos, planilhas CSV e Excel)</p>
-        <label for="file-input" class="btn-primary">
-          <i class="ph ph-folder-open"></i> Selecionar Arquivo
-        </label>
-        <input type="file" id="file-input" hidden accept=".csv, .xlsx, .pdf">
-      </div>
-    </section>
+        <div class="user-profile">
+          <i class="ph ph-bell icon-bell"></i>
+          <div class="avatar">LN</div>
+          <div class="user-info">
+            <span class="name">Leandro Neri</span>
+            <span class="role">Administrador</span>
+          </div>
+        </div>
+      </header>
 
-  </main>
+      <!-- Cards de Indicadores (KPIs) -->
+      <section class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-icon blue"><i class="ph ph-currency-dollar"></i></div>
+          <div class="kpi-data">
+            <span class="title">Faturamento Total</span>
+            <h2>R$ 51.284,83</h2>
+            <span class="badge positive">+12.5% este mês</span>
+          </div>
+        </div>
 
+        <div class="kpi-card">
+          <div class="kpi-icon purple"><i class="ph ph-receipt"></i></div>
+          <div class="kpi-data">
+            <span class="title">Total de Vendas</span>
+            <h2>99 PDVs</h2>
+            <span class="badge neutral">Período Ativo</span>
+          </div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-icon green"><i class="ph ph-chart-line-up"></i></div>
+          <div class="kpi-data">
+            <span class="title">Ticket Médio</span>
+            <h2>R$ 518,02</h2>
+            <span class="badge positive">+4.1% vs anterior</span>
+          </div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-icon orange"><i class="ph ph-paper-plane-tilt"></i></div>
+          <div class="kpi-data">
+            <span class="title">Mensagens Enviadas</span>
+            <h2>342</h2>
+            <span class="badge positive">98% Entregues</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Módulo de Importação de Arquivos (CSV / XLSX / PDF) -->
+      <section class="section-container">
+        <div class="section-header">
+          <h3><i class="ph ph-file-arrow-up"></i> Importação de Relatórios e PDVs</h3>
+          <p>Carregue suas planilhas (CSV, XLSX) ou relatórios em PDF para importar os registros para o sistema.</p>
+        </div>
+        
+        <div class="upload-zone" id="drop-zone">
+          <div class="upload-icon-wrapper">
+            <i class="ph ph-cloud-arrow-up"></i>
+          </div>
+          <h4>Arraste seu arquivo para esta área</h4>
+          <p>Suporta arquivos de até 50MB (.CSV, .XLSX, .PDF)</p>
+          <label for="file-input" class="btn-primary">
+            <i class="ph ph-folder-open"></i> Selecionar Arquivo
+          </label>
+          <input type="file" id="file-input" hidden accept=".csv, .xlsx, .pdf">
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Script vinculado com anti-cache -->
+  <script src="script.js?v=3.0.0"></script>
 </body>
 </html>
