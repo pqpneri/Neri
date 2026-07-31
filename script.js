@@ -1,10 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
-  // Elementos da área de Upload
-  const dropZone = document.querySelector('.upload-zone');
+  const dropZone = document.getElementById('drop-zone');
   const fileInput = document.getElementById('file-input');
 
   if (dropZone && fileInput) {
-    // 1. Efeitos visuais ao arrastar arquivos sobre a área
+    // Efeitos ao arrastar arquivos
     ['dragenter', 'dragover'].forEach(eventName => {
       dropZone.addEventListener(eventName, (e) => {
         e.preventDefault();
@@ -23,17 +22,15 @@ document.addEventListener('DOMContentLoaded', () => {
       }, false);
     });
 
-    // 2. Ação ao soltar o arquivo (Drop)
+    // Ação de Soltar (Drop)
     dropZone.addEventListener('drop', (e) => {
-      const dt = e.dataTransfer;
-      const files = dt.files;
-
+      const files = e.dataTransfer.files;
       if (files.length > 0) {
         handleFiles(files[0]);
       }
     });
 
-    // 3. Ação ao selecionar arquivo via botão
+    // Ação do Botão Selecionar
     fileInput.addEventListener('change', (e) => {
       if (e.target.files.length > 0) {
         handleFiles(e.target.files[0]);
@@ -41,38 +38,36 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Função para processar o arquivo enviado
   function handleFiles(file) {
     const allowedExtensions = ['csv', 'xlsx', 'pdf'];
     const fileExtension = file.name.split('.').pop().toLowerCase();
 
     if (!allowedExtensions.includes(fileExtension)) {
-      alert('⚠️ Formato não suportado. Por favor, envie um arquivo .CSV, .XLSX ou .PDF.');
+      alert('⚠️ Formato não suportado! Envie um arquivo .CSV, .XLSX ou .PDF.');
       return;
     }
 
-    // Feedback visual de carregamento
     const uploadIcon = dropZone.querySelector('.upload-icon-wrapper');
     const title = dropZone.querySelector('h4');
     const subtitle = dropZone.querySelector('p');
 
+    // Estado de Carregamento
     uploadIcon.innerHTML = `<i class="ph ph-spinner spinner" style="animation: spin 1s linear infinite;"></i>`;
-    title.innerText = `Lendo o arquivo: ${file.name}`;
-    subtitle.innerText = `Processando registros e importando vendas para o sistema...`;
+    title.innerText = `Processando: ${file.name}`;
+    subtitle.innerText = `Lendo dados e importando vendas para o banco de dados...`;
 
-    // Simulação do tempo de processamento da importação
+    // Conclusão
     setTimeout(() => {
       uploadIcon.innerHTML = `<i class="ph ph-check-circle" style="color: #10b981;"></i>`;
       title.innerText = `Importação concluída com sucesso!`;
-      subtitle.innerText = `O arquivo ${file.name} foi processado e adicionado ao banco de dados do CRM.`;
-
-      // Notificação
-      alert(`✅ Sucesso! O arquivo "${file.name}" foi importado para o CRM.`);
-    }, 2500);
+      subtitle.innerText = `O arquivo ${file.name} foi adicionado ao CRM.`;
+      
+      alert(`✅ O arquivo "${file.name}" foi processado e importado com sucesso!`);
+    }, 2000);
   }
 });
 
-// Adiciona animação CSS para o ícone de carregamento via JS
+// Estilo de animação para o ícone giratório de carregamento
 const style = document.createElement('style');
 style.innerHTML = `
   @keyframes spin {
