@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRM Pro & Analytics</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Chart.js para o Infográfico/Dashboard -->
+    <script src="https://cdn.jsdelivr.net/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+</head>
+<body>
+
+    <!-- Header Navigation Bar -->
+    <header class="navbar">
+        <div class="nav-brand">
+            <span class="logo-icon">📊</span>
+            <h1>CRM Pro <span>Analytics</span></h1>
+        </div>
+        
+        <!-- Navegação por Abas -->
+        <nav class="nav-tabs">
+            <button class="tab-btn active" onclick="switchTab('clientesTab', this)">
+                <span class="tab-icon">👤</span> Clientes & Vendas
+            </button>
+            <button class="tab-btn" onclick="switchTab('analyticsTab', this)">
+                <span class="tab-icon">📈</span> Infográfico & Análise
+            </button>
+        </nav>
+    </header>
+
+    <!-- Conteúdo Principal -->
+    <main class="container">
+
+        <!-- ABA 1: CLIENTES E VENDAS -->
+        <section id="clientesTab" class="tab-content active">
+            <!-- Barra de Controles e Filtros Avançados -->
+            <div class="control-panel">
+                <div class="search-box">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" id="searchInput" placeholder="Buscar cliente, produto ou data..." onkeyup="applyFilters()">
+                </div>
+                
+                <div class="filter-group">
+                    <select id="sortSelect" onchange="applyFilters()">
+                        <option value="recent">Mais Recentes</option>
+                        <option value="oldest">Mais Antigos</option>
+                        <option value="valueDesc">Maior Valor</option>
+                        <option value="valueAsc">Menor Valor</option>
+                        <option value="nameAsc">Nome (A-Z)</option>
+                    </select>
+
+                    <button class="btn-secondary" onclick="exportToCSV()">
+                        📥 Exportar CSV
+                    </button>
+                </div>
+            </div>
+
+            <!-- Resumo Financeiro / Cards Rápidos -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon clients-bg">👥</div>
+                    <div>
+                        <span class="stat-label">Clientes Cadastrados</span>
+                        <h2 id="totalClients">0</h2>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon revenue-bg">💰</div>
+                    <div>
+                        <span class="stat-label">Faturamento Total</span>
+                        <h2 id="totalRevenue">R$ 0,00</h2>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon ticket-bg">🏷️</div>
+                    <div>
+                        <span class="stat-label">Ticket Médio / Cliente</span>
+                        <h2 id="avgTicket">R$ 0,00</h2>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lista de Cards de Clientes -->
+            <div id="clientList" class="client-grid">
+                <!-- Preenchido via JavaScript -->
+            </div>
+        </section>
+
+
+        <!-- ABA 2: INFOGRÁFICO & DASHBOARD ANALÍTICO -->
+        <section id="analyticsTab" class="tab-content">
+            <div class="dashboard-header">
+                <h2>Infográfico & Métricas de Desempenho</h2>
+                <p>Análise visual de produtos mais vendidos, evolução do faturamento e distribuição de clientes.</p>
+            </div>
+
+            <!-- Métricas Secundárias do Dashboard -->
+            <div class="metrics-row">
+                <div class="metric-box">
+                    <h3>Top Categoria</h3>
+                    <p id="topCategory">Smartphones & Celulares</p>
+                </div>
+                <div class="metric-box">
+                    <h3>Total de Vendas Registradas</h3>
+                    <p id="totalPurchasesCount">0</p>
+                </div>
+                <div class="metric-box">
+                    <h3>Maior Compra Individual</h3>
+                    <p id="maxPurchaseVal">R$ 0,00</p>
+                </div>
+            </div>
+
+            <!-- Gráficos Analíticos -->
+            <div class="charts-grid">
+                <div class="chart-card">
+                    <h3>🔥 Produtos / Categorias Mais Vendidos</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="productsChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="chart-card">
+                    <h3>📅 Evolução de Faturamento Mensal</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="revenueChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Modal para Contato via WhatsApp / Anotações de CRM -->
+    <div id="contactModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <h3 id="modalClientName">Contato do Cliente</h3>
+            <p class="subtitle">Personalize a abordagem comercial via WhatsApp:</p>
+
+            <div class="input-group">
+                <label for="phoneNumber">Número do WhatsApp (DDD + Número):</label>
+                <input type="tel" id="phoneNumber" placeholder="Ex: 5581999998888">
+            </div>
+
+            <div class="input-group">
+                <label for="messageTemplate">Modelo de Mensagem:</label>
+                <select id="messageTemplate" onchange="updateMessageText()">
+                    <option value="posvenda">💬 Pós-venda & Suporte</option>
+                    <option value="oferta">🔥 Oferta Personalizada / Upsell</option>
+                    <option value="agradecimento">❤️ Agradecimento & Fidelização</option>
+                    <option value="aniversario">🎁 Lembrete / Cupom Especial</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label for="customMessage">Mensagem Final:</label>
+                <textarea id="customMessage" rows="5"></textarea>
+            </div>
+
+            <button class="btn-whatsapp" onclick="sendWhatsApp()">
+                🚀 Disparar Mensagem no WhatsApp
+            </button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
