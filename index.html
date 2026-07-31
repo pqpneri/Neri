@@ -1,168 +1,131 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CRM Pro & Analytics</title>
-    <link rel="stylesheet" href="styles.css">
-    <!-- Chart.js para o Infográfico/Dashboard -->
-    <script src="https://cdn.jsdelivr.net/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UniGames CRM - Gestão e Automação</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Ícones Phosphor Icons -->
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
 </head>
 <body>
 
-    <!-- Header Navigation Bar -->
-    <header class="navbar">
-        <div class="nav-brand">
-            <span class="logo-icon">📊</span>
-            <h1>CRM Pro <span>Analytics</span></h1>
-        </div>
-        
-        <!-- Navegação por Abas -->
-        <nav class="nav-tabs">
-            <button class="tab-btn active" onclick="switchTab('clientesTab', this)">
-                <span class="tab-icon">👤</span> Clientes & Vendas
-            </button>
-            <button class="tab-btn" onclick="switchTab('analyticsTab', this)">
-                <span class="tab-icon">📈</span> Infográfico & Análise
-            </button>
-        </nav>
+  <!-- Sidebar / Menu Lateral -->
+  <aside class="sidebar">
+    <div class="brand">
+      <i class="ph ph-game-controller"></i>
+      <span>UniGames CRM</span>
+    </div>
+    <nav class="menu">
+      <a href="#" class="active"><i class="ph ph-squares-four"></i> Dashboard</a>
+      <a href="#"><i class="ph ph-users"></i> Clientes</a>
+      <a href="#"><i class="ph ph-shopping-cart"></i> Vendas (PDV)</a>
+      <a href="#"><i class="ph ph-file-arrow-up"></i> Importar Dados</a>
+      <a href="#"><i class="ph ph-chat-circle-dots"></i> Automação WhatsApp</a>
+      <a href="#"><i class="ph ph-gear"></i> Configurações</a>
+    </nav>
+  </aside>
+
+  <!-- Conteúdo Principal -->
+  <main class="main-content">
+    
+    <!-- Topbar -->
+    <header class="topbar">
+      <div class="search-bar">
+        <i class="ph ph-magnifying-glass"></i>
+        <input type="text" placeholder="Buscar cliente, número de PDV ou transação...">
+      </div>
+      <div class="user-profile">
+        <i class="ph ph-bell"></i>
+        <div class="avatar">LN</div>
+        <span>Leandro Neri</span>
+      </div>
     </header>
 
-    <!-- Conteúdo Principal -->
-    <main class="container">
+    <!-- Cards de Indicadores (KPIs) -->
+    <section class="kpi-grid">
+      <div class="kpi-card">
+        <span class="title">Faturamento Total</span>
+        <h2>R$ 51.284,83</h2>
+        <span class="badge positive">+12.5% este mês</span>
+      </div>
+      <div class="kpi-card">
+        <span class="title">Total de Vendas</span>
+        <h2>99 PDVs</h2>
+        <span class="badge neutral">Período Selecionado</span>
+      </div>
+      <div class="kpi-card">
+        <span class="title">Ticket Médio</span>
+        <h2>R$ 518,02</h2>
+        <span class="badge positive">+4.1% vs anterior</span>
+      </div>
+      <div class="kpi-card">
+        <span class="title">Mensagens Enviadas</span>
+        <h2>342</h2>
+        <span class="badge positive">98% Entregues</span>
+      </div>
+    </section>
 
-        <!-- ABA 1: CLIENTES E VENDAS -->
-        <section id="clientesTab" class="tab-content active">
-            <!-- Barra de Controles e Filtros Avançados -->
-            <div class="control-panel">
-                <div class="search-box">
-                    <span class="search-icon">🔍</span>
-                    <input type="text" id="searchInput" placeholder="Buscar cliente, produto ou data..." onkeyup="applyFilters()">
-                </div>
-                
-                <div class="filter-group">
-                    <select id="sortSelect" onchange="applyFilters()">
-                        <option value="recent">Mais Recentes</option>
-                        <option value="oldest">Mais Antigos</option>
-                        <option value="valueDesc">Maior Valor</option>
-                        <option value="valueAsc">Menor Valor</option>
-                        <option value="nameAsc">Nome (A-Z)</option>
-                    </select>
+    <!-- Módulo 1: Upload e Importação de CSV / Excel -->
+    <section class="section-container">
+      <div class="section-header">
+        <h3><i class="ph ph-file-arrow-up"></i> Importação de Vendas e Relatórios</h3>
+        <p>Arraste seu arquivo em PDF exportado, CSV ou Excel (.xlsx) para cadastrar os PDVs no sistema.</p>
+      </div>
+      
+      <div class="upload-zone" id="drop-zone">
+        <i class="ph ph-cloud-arrow-up"></i>
+        <h4>Arraste e solte o arquivo do seu relatório aqui</h4>
+        <p>Suporta arquivos <strong>.CSV, .XLSX, .PDF</strong> (Suporta até 50MB ou 260+ páginas)</p>
+        <label for="file-input" class="btn-primary">Selecionar Arquivo</label>
+        <input type="file" id="file-input" hidden accept=".csv, .xlsx, .pdf">
+      </div>
+    </section>
 
-                    <button class="btn-secondary" onclick="exportToCSV()">
-                        📥 Exportar CSV
-                    </button>
-                </div>
-            </div>
-
-            <!-- Resumo Financeiro / Cards Rápidos -->
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-icon clients-bg">👥</div>
-                    <div>
-                        <span class="stat-label">Clientes Cadastrados</span>
-                        <h2 id="totalClients">0</h2>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon revenue-bg">💰</div>
-                    <div>
-                        <span class="stat-label">Faturamento Total</span>
-                        <h2 id="totalRevenue">R$ 0,00</h2>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon ticket-bg">🏷️</div>
-                    <div>
-                        <span class="stat-label">Ticket Médio / Cliente</span>
-                        <h2 id="avgTicket">R$ 0,00</h2>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Lista de Cards de Clientes -->
-            <div id="clientList" class="client-grid">
-                <!-- Preenchido via JavaScript -->
-            </div>
-        </section>
-
-
-        <!-- ABA 2: INFOGRÁFICO & DASHBOARD ANALÍTICO -->
-        <section id="analyticsTab" class="tab-content">
-            <div class="dashboard-header">
-                <h2>Infográfico & Métricas de Desempenho</h2>
-                <p>Análise visual de produtos mais vendidos, evolução do faturamento e distribuição de clientes.</p>
-            </div>
-
-            <!-- Métricas Secundárias do Dashboard -->
-            <div class="metrics-row">
-                <div class="metric-box">
-                    <h3>Top Categoria</h3>
-                    <p id="topCategory">Smartphones & Celulares</p>
-                </div>
-                <div class="metric-box">
-                    <h3>Total de Vendas Registradas</h3>
-                    <p id="totalPurchasesCount">0</p>
-                </div>
-                <div class="metric-box">
-                    <h3>Maior Compra Individual</h3>
-                    <p id="maxPurchaseVal">R$ 0,00</p>
-                </div>
-            </div>
-
-            <!-- Gráficos Analíticos -->
-            <div class="charts-grid">
-                <div class="chart-card">
-                    <h3>🔥 Produtos / Categorias Mais Vendidos</h3>
-                    <div class="chart-wrapper">
-                        <canvas id="productsChart"></canvas>
-                    </div>
-                </div>
-
-                <div class="chart-card">
-                    <h3>📅 Evolução de Faturamento Mensal</h3>
-                    <div class="chart-wrapper">
-                        <canvas id="revenueChart"></canvas>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- Modal para Contato via WhatsApp / Anotações de CRM -->
-    <div id="contactModal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal()">&times;</span>
-            <h3 id="modalClientName">Contato do Cliente</h3>
-            <p class="subtitle">Personalize a abordagem comercial via WhatsApp:</p>
-
-            <div class="input-group">
-                <label for="phoneNumber">Número do WhatsApp (DDD + Número):</label>
-                <input type="tel" id="phoneNumber" placeholder="Ex: 5581999998888">
-            </div>
-
-            <div class="input-group">
-                <label for="messageTemplate">Modelo de Mensagem:</label>
-                <select id="messageTemplate" onchange="updateMessageText()">
-                    <option value="posvenda">💬 Pós-venda & Suporte</option>
-                    <option value="oferta">🔥 Oferta Personalizada / Upsell</option>
-                    <option value="agradecimento">❤️ Agradecimento & Fidelização</option>
-                    <option value="aniversario">🎁 Lembrete / Cupom Especial</option>
-                </select>
-            </div>
-
-            <div class="input-group">
-                <label for="customMessage">Mensagem Final:</label>
-                <textarea id="customMessage" rows="5"></textarea>
-            </div>
-
-            <button class="btn-whatsapp" onclick="sendWhatsApp()">
-                🚀 Disparar Mensagem no WhatsApp
-            </button>
+    <!-- Módulo 2: Automação de Mensagens -->
+    <section class="section-container">
+      <div class="section-header">
+        <h3><i class="ph ph-chat-circle-dots"></i> Régua de Mensagens Programadas (WhatsApp)</h3>
+      </div>
+      
+      <div class="message-grid">
+        <!-- Template 1 -->
+        <div class="msg-card">
+          <div class="msg-header">
+            <span class="tag">Pós-Venda</span>
+            <label class="switch">
+              <input type="checkbox" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+          <h4>Acompanhamento 2 Dias</h4>
+          <p class="msg-preview">"Fala, {nome}! Tudo certo com o seu produto adquirido na UniGames?..."</p>
+          <div class="msg-footer">
+            <span>Gatilho: 2 dias após compra</span>
+            <button class="btn-secondary">Editar</button>
+          </div>
         </div>
-    </div>
 
-    <script src="script.js"></script>
+        <!-- Template 2 -->
+        <div class="msg-card">
+          <div class="msg-header">
+            <span class="tag warning">Reengajamento</span>
+            <label class="switch">
+              <input type="checkbox" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+          <h4>Cliente Sumido (60 Dias)</h4>
+          <p class="msg-preview">"E aí, {nome}! Faz um tempo que não nos vemos. Separamos o cupom VIP10..."</p>
+          <div class="msg-footer">
+            <span>Gatilho: 60 dias sem comprar</span>
+            <button class="btn-secondary">Editar</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
 </body>
 </html>
