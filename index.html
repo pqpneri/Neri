@@ -1,910 +1,577 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>UniTools Gamer — Testador de Controles USB</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UniTools Gamer</title>
+
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      padding: 24px;
+      background: #070b12;
+      color: #eef2ff;
+      font-family: system-ui, sans-serif;
+    }
+
+    .top {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 28px;
+    }
+
+    .logo {
+      width: 48px;
+      height: 48px;
+      display: grid;
+      place-items: center;
+      font-size: 24px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #22d3ee, #a855f7);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 26px;
+    }
+
+    h1 span {
+      color: #22d3ee;
+    }
+
+    .card {
+      max-width: 900px;
+      margin: 0 auto;
+      background: #101826;
+      border: 1px solid #26313d;
+      border-radius: 18px;
+      padding: 22px;
+    }
+
+    .status {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .ok { color: #34d399; }
+    .erro { color: #fb7185; }
+
+    .info {
+      color: #94a3b8;
+      font-size: 14px;
+      margin-bottom: 20px;
+      word-break: break-word;
+    }
+
+    .error {
+      display: none;
+      margin-bottom: 20px;
+      padding: 14px;
+      border-radius: 12px;
+      background: rgba(251, 113, 133, .12);
+      border: 1px solid rgba(251, 113, 133, .4);
+      color: #fecdd3;
+      font-family: monospace;
+      font-size: 13px;
+      white-space: pre-wrap;
+    }
 
-<style>
-  :root {
-    --bg: #05070d;
-    --panel: rgba(17, 24, 39, .82);
-    --panel-2: rgba(30, 41, 59, .45);
-    --border: rgba(148, 163, 184, .16);
-    --text: #eef2ff;
-    --muted: #94a3b8;
-    --cyan: #22d3ee;
-    --violet: #a855f7;
-    --green: #34d399;
-    --red: #fb7185;
-    --amber: #fbbf24;
-  }
-
-  * { box-sizing: border-box; }
-
-  body {
-    margin: 0;
-    min-height: 100vh;
-    color: var(--text);
-    background:
-      radial-gradient(900px 500px at 10% -5%, rgba(34,211,238,.15), transparent 60%),
-      radial-gradient(800px 500px at 90% 5%, rgba(168,85,247,.15), transparent 60%),
-      var(--bg);
-    font-family: Inter, system-ui, sans-serif;
-  }
-
-  .nav {
-    position: sticky;
-    top: 0;
-    z-index: 10;
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    padding: 14px max(20px, calc((100vw - 1120px) / 2));
-    background: rgba(5,7,13,.78);
-    backdrop-filter: blur(18px);
-    border-bottom: 1px solid var(--border);
-  }
-
-  .brand-icon {
-    width: 44px;
-    height: 44px;
-    display: grid;
-    place-items: center;
-    border-radius: 13px;
-    font-size: 22px;
-    background: linear-gradient(135deg, var(--cyan), var(--violet));
-  }
-
-  .brand-name {
-    font-family: "Space Grotesk", sans-serif;
-    font-size: 20px;
-    font-weight: 700;
-  }
-
-  .brand-name span {
-    background: linear-gradient(90deg, var(--cyan), var(--violet));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
-
-  .brand-tag {
-    display: block;
-    margin-top: 3px;
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-
-  .hero {
-    max-width: 1120px;
-    margin: 0 auto;
-    padding: 54px 20px 30px;
-    text-align: center;
-  }
-
-  .pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 14px;
-    border-radius: 999px;
-    border: 1px solid rgba(34,211,238,.28);
-    background: rgba(34,211,238,.08);
-    color: #a5f3fc;
-    font-size: 12.5px;
-    font-weight: 600;
-  }
-
-  .pill .dot {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: var(--green);
-  }
-
-  h1 {
-    max-width: 780px;
-    margin: 20px auto 14px;
-    font-family: "Space Grotesk", sans-serif;
-    font-size: clamp(34px, 6vw, 62px);
-    line-height: 1.05;
-    letter-spacing: -2px;
-  }
-
-  h1 .gradient {
-    background: linear-gradient(92deg, var(--cyan), #818cf8 45%, var(--violet));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
-
-  .hero p {
-    max-width: 640px;
-    margin: 0 auto;
-    color: var(--muted);
-    font-size: 16.5px;
-    line-height: 1.65;
-  }
-
-  .actions {
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-    flex-wrap: wrap;
-    margin-top: 24px;
-  }
-
-  .btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 9px;
-    padding: 13px 20px;
-    border-radius: 12px;
-    border: 1px solid var(--border);
-    background: var(--panel);
-    color: var(--text);
-    font: inherit;
-    font-weight: 650;
-    cursor: pointer;
-    transition: .2s;
-  }
-
-  .btn:hover {
-    transform: translateY(-2px);
-    border-color: rgba(34,211,238,.5);
-  }
-
-  .btn-primary {
-    border: 0;
-    color: #04121a;
-    background: linear-gradient(100deg, var(--cyan), #818cf8);
-  }
-
-  .section {
-    max-width: 1120px;
-    margin: 0 auto;
-    padding: 10px 20px 60px;
-  }
-
-  h2 {
-    margin: 0;
-    font-family: "Space Grotesk", sans-serif;
-    font-size: clamp(23px, 3vw, 32px);
-    letter-spacing: -.8px;
-  }
-
-  .section-sub {
-    margin: 6px 0 18px;
-    color: var(--muted);
-    font-size: 14.5px;
-  }
-
-  .grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 18px;
-  }
-
-  .controller {
-    border-radius: 22px;
-    border: 1px solid var(--border);
-    background: linear-gradient(160deg, rgba(17,24,39,.94), rgba(9,13,22,.96));
-    box-shadow: 0 25px 70px rgba(0,0,0,.4);
-    padding: 20px;
-  }
-
-  .head {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 14px;
-    flex-wrap: wrap;
-  }
-
-  .title {
-    font-family: "Space Grotesk", sans-serif;
-    font-size: 20px;
-    font-weight: 700;
-  }
-
-  .model {
-    margin-top: 5px;
-    color: var(--muted);
-    font-size: 12px;
-    line-height: 1.5;
-    word-break: break-word;
-  }
-
-  .badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-    padding: 7px 11px;
-    border-radius: 999px;
-    border: 1px solid rgba(52,211,153,.35);
-    background: rgba(52,211,153,.1);
-    color: var(--green);
-    font-size: 11px;
-    font-weight: 700;
-    white-space: nowrap;
-  }
-
-  .badge::before {
-    content: "";
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: currentColor;
-    box-shadow: 0 0 10px currentColor;
-  }
-
-  /* Visual do controle */
-  .visual {
-    margin-top: 18px;
-    padding: 22px;
-    border-radius: 18px;
-    border: 1px solid var(--border);
-    background: rgba(2,6,23,.55);
-  }
-
-  .gamepad {
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
-    align-items: center;
-    gap: 18px;
-    max-width: 640px;
-    margin: 0 auto;
-  }
-
-  .cluster {
-    display: grid;
-    gap: 14px;
-    justify-items: center;
-  }
-
-  .dpad {
-    width: 128px;
-    height: 128px;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(3, 1fr);
-    gap: 3px;
-  }
-
-  .dpad button {
-    border: 1px solid var(--border);
-    background: rgba(15,23,42,.85);
-    color: var(--muted);
-    font: inherit;
-    font-size: 13px;
-    font-weight: 700;
-    border-radius: 10px;
-    cursor: default;
-    transition: .07s;
-  }
-
-  .dpad button.on {
-    color: #fff;
-    border-color: rgba(34,211,238,.8);
-    background: rgba(34,211,238,.22);
-    box-shadow: 0 0 18px rgba(34,211,238,.3);
-  }
-
-  .dpad .up { grid-area: 1 / 2; }
-  .dpad .left { grid-area: 2 / 1; }
-  .dpad .right { grid-area: 2 / 3; }
-  .dpad .down { grid-area: 3 / 2; }
-
-  .stick {
-    width: 108px;
-    height: 108px;
-    border-radius: 50%;
-    border: 1px solid rgba(148,163,184,.18);
-    background: rgba(15,23,42,.85);
-    display: grid;
-    place-items: center;
-    position: relative;
-  }
-
-  .stick-dot {
-    width: 46px;
-    height: 46px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, var(--cyan), #818cf8);
-    box-shadow: 0 0 18px rgba(34,211,238,.4);
-    transition: transform .04s linear;
-  }
-
-  .center {
-    display: grid;
-    gap: 8px;
-    justify-items: center;
-    text-align: center;
-    color: var(--muted);
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 1.2px;
-    text-transform: uppercase;
-  }
-
-  .center-logo {
-    width: 66px;
-    height: 66px;
-    display: grid;
-    place-items: center;
-    border-radius: 50%;
-    border: 1px solid rgba(148,163,184,.18);
-    background: rgba(15,23,42,.85);
-    font-size: 20px;
-  }
-
-  .face {
-    display: grid;
-    grid-template-columns: repeat(2, 52px);
-    grid-template-rows: repeat(2, 52px);
-    gap: 8px;
-    justify-items: center;
-    align-items: center;
-  }
-
-  .face button {
-    width: 52px;
-    height: 52px;
-    border-radius: 50%;
-    border: 1px solid var(--border);
-    background: rgba(15,23,42,.85);
-    color: var(--muted);
-    font: inherit;
-    font-size: 14px;
-    font-weight: 800;
-    cursor: default;
-    transition: .07s;
-  }
-
-  .face button.on {
-    color: #fff;
-    border-color: rgba(34,211,238,.8);
-    background: rgba(34,211,238,.22);
-    box-shadow: 0 0 20px rgba(34,211,238,.35);
-    transform: scale(.93);
-  }
-
-  .face .top { grid-area: 1 / 2; }
-  .face .left { grid-area: 2 / 1; }
-  .face .right { grid-area: 2 / 2; }
-  .face .bottom { grid-area: 2 / 1; }
-
-  .shoulders {
-    display: flex;
-    justify-content: space-between;
-    gap: 12px;
-    max-width: 640px;
-    margin: 0 auto 14px;
-  }
-
-  .shoulder {
-    flex: 1;
-    display: grid;
-    gap: 8px;
-  }
-
-  .shoulder button {
-    height: 46px;
-    border-radius: 12px;
-    border: 1px solid var(--border);
-    background: rgba(15,23,42,.85);
-    color: var(--muted);
-    font: inherit;
-    font-size: 12px;
-    font-weight: 700;
-    cursor: default;
-    transition: .07s;
-  }
-
-  .shoulder button.on {
-    color: #fff;
-    border-color: rgba(168,85,247,.8);
-    background: rgba(168,85,247,.22);
-    box-shadow: 0 0 18px rgba(168,85,247,.3);
-  }
-
-  .block {
-    margin-top: 16px;
-    padding: 15px;
-    border-radius: 16px;
-    border: 1px solid var(--border);
-    background: rgba(15,23,42,.45);
-  }
-
-  .block-title {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 11px;
-    font-size: 11px;
-    font-weight: 750;
-    letter-spacing: 1.2px;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-
-  .buttons {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(84px, 1fr));
-    gap: 8px;
-  }
-
-  .button {
-    min-height: 54px;
-    display: grid;
-    align-content: center;
-    gap: 3px;
-    padding: 8px 6px;
-    border-radius: 11px;
-    border: 1px solid var(--border);
-    background: rgba(30,41,59,.4);
-    color: var(--muted);
-    font-size: 11px;
-    font-weight: 650;
-    text-align: center;
-    transition: .06s;
-  }
-
-  .button.on {
-    color: #fff;
-    border-color: rgba(34,211,238,.65);
-    background: rgba(34,211,238,.16);
-    transform: scale(.95);
-  }
-
-  .button-value {
-    font-size: 10px;
-    color: var(--cyan);
-  }
-
-  .axes {
-    display: grid;
-    gap: 10px;
-  }
-
-  .axis {
-    display: grid;
-    grid-template-columns: 72px 1fr 48px;
-    align-items: center;
-    gap: 10px;
-    font-size: 12px;
-    color: var(--muted);
-  }
-
-  .meter {
-    height: 9px;
-    border-radius: 999px;
-    background: rgba(2,6,23,.9);
-    border: 1px solid var(--border);
-    overflow: hidden;
-  }
-
-  .meter-fill {
-    height: 100%;
-    width: 50%;
-    background: linear-gradient(90deg, var(--cyan), #818cf8);
-    transition: width .04s linear;
-  }
-
-  .axis-value {
-    text-align: right;
-    color: #cbd5e1;
-    font-variant-numeric: tabular-nums;
-  }
-
-  .vibration {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    flex-wrap: wrap;
-  }
-
-  .range {
-    flex: 1;
-    min-width: 140px;
-    accent-color: var(--cyan);
-  }
-
-  .empty {
-    max-width: 720px;
-    margin: 0 auto;
-    padding: 48px 24px;
-    border-radius: 24px;
-    border: 1px dashed rgba(148,163,184,.25);
-    background: rgba(15,23,42,.5);
-    text-align: center;
-  }
-
-  .empty-icon {
-    width: 74px;
-    height: 74px;
-    margin: 0 auto 18px;
-    display: grid;
-    place-items: center;
-    border-radius: 22px;
-    font-size: 34px;
-    background: rgba(34,211,238,.1);
-    border: 1px solid rgba(34,211,238,.22);
-  }
-
-  .empty h3 {
-    margin: 0 0 8px;
-    font-family: "Space Grotesk", sans-serif;
-    font-size: 24px;
-  }
-
-  .empty p {
-    margin: 0;
-    color: var(--muted);
-    line-height: 1.6;
-  }
-
-  footer {
-    border-top: 1px solid var(--border);
-    background: rgba(5,7,13,.7);
-    padding: 24px 20px;
-    text-align: center;
-    color: var(--muted);
-    font-size: 13px;
-  }
-
-  footer strong { color: var(--text); }
-
-  @media (max-width: 720px) {
     .gamepad {
-      grid-template-columns: 1fr;
+      display: none;
+      max-width: 620px;
+      margin: 0 auto;
+      padding: 20px;
+      border-radius: 20px;
+      background: #0b1220;
+      border: 1px solid #26313d;
+    }
+
+    .row {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+
+    .side {
+      display: grid;
+      gap: 16px;
       justify-items: center;
     }
 
-    .shoulders {
-      flex-direction: column;
+    .dpad {
+      width: 130px;
+      height: 130px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(3, 1fr);
+      gap: 4px;
     }
-  }
-</style>
+
+    .dpad div {
+      display: grid;
+      place-items: center;
+      border-radius: 10px;
+      border: 1px solid #26313d;
+      background: #131c2b;
+      color: #94a3b8;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .dpad .up { grid-area: 1 / 2; }
+    .dpad .left { grid-area: 2 / 1; }
+    .dpad .right { grid-area: 2 / 3; }
+    .dpad .down { grid-area: 3 / 2; }
+
+    .on {
+      background: rgba(34, 211, 238, .25) !important;
+      border-color: #22d3ee !important;
+      color: #fff !important;
+      box-shadow: 0 0 18px rgba(34, 211, 238, .35);
+    }
+
+    .stick {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      border: 1px solid #26313d;
+      background: #131c2b;
+      display: grid;
+      place-items: center;
+    }
+
+    .stick-dot {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #22d3ee, #818cf8);
+      transition: transform .04s linear;
+    }
+
+    .center {
+      display: grid;
+      place-items: center;
+      color: #94a3b8;
+      font-size: 11px;
+      font-weight: 700;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .face {
+      display: grid;
+      grid-template-columns: repeat(2, 54px);
+      grid-template-rows: repeat(2, 54px);
+      gap: 10px;
+      justify-items: center;
+      align-items: center;
+    }
+
+    .face div {
+      width: 54px;
+      height: 54px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      border: 1px solid #26313d;
+      background: #131c2b;
+      color: #94a3b8;
+      font-size: 16px;
+      font-weight: 800;
+    }
+
+    .face .top { grid-area: 1 / 2; }
+    .face .left { grid-area: 2 / 1; }
+    .face .right { grid-area: 2 / 2; }
+    .face .bottom { grid-area: 2 / 1; }
+
+    .shoulders {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+
+    .shoulder {
+      flex: 1;
+      display: grid;
+      gap: 8px;
+    }
+
+    .shoulder div {
+      height: 44px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      border: 1px solid #26313d;
+      background: #131c2b;
+      color: #94a3b8;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+      gap: 8px;
+    }
+
+    .button {
+      min-height: 52px;
+      display: grid;
+      align-content: center;
+      gap: 4px;
+      padding: 8px;
+      border-radius: 10px;
+      border: 1px solid #26313d;
+      background: #131c2b;
+      color: #94a3b8;
+      font-size: 11px;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .button span {
+      font-size: 10px;
+      color: #22d3ee;
+    }
+
+    .vibration {
+      margin-top: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    input[type="range"] {
+      flex: 1;
+      min-width: 140px;
+      accent-color: #22d3ee;
+    }
+
+    button {
+      padding: 12px 18px;
+      border: 0;
+      border-radius: 10px;
+      background: #22d3ee;
+      color: #04121a;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    @media (max-width: 700px) {
+      .row {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .shoulders {
+        flex-direction: column;
+      }
+    }
+  </style>
 </head>
+
 <body>
 
-<nav class="nav">
-  <div class="brand-icon">🎮</div>
-  <div>
-    <div class="brand-name">Uni<span>Tools</span> Gamer</div>
-    <span class="brand-tag">Diagnóstico de controles</span>
-  </div>
-</nav>
-
-<header class="hero">
-  <div class="pill"><span class="dot"></span> Teste pelo navegador — sem instalação</div>
-
-  <h1>Teste seu controle USB com <span class="gradient">UniTools Gamer</span></h1>
-
-  <p>
-    Conecte o controle pelo USB, pressione qualquer botão e veja o gamepad responder
-    em tempo real. O visual se adapta ao modelo detectado.
-  </p>
-
-  <div class="actions">
-    <button class="btn btn-primary" id="vibrateAll">⚡ Testar vibração</button>
-    <button class="btn" id="refresh">🔄 Atualizar controles</button>
-  </div>
-</header>
-
-<section class="section">
-  <h2>Painel de diagnóstico</h2>
-  <p class="section-sub" id="status">Aguardando um controle ser detectado pelo navegador.</p>
-
-  <div class="grid" id="controllers"></div>
-
-  <div class="empty" id="empty">
-    <div class="empty-icon">🕹️</div>
-    <h3>Conecte seu controle</h3>
-    <p>
-      Plugue o gamepad no computador pelo USB e pressione qualquer botão.
-      O UniTools Gamer detecta automaticamente os controles compatíveis.
-    </p>
-  </div>
-</section>
-
-<footer>
-  <strong>UniTools Gamer</strong> — teste de controles USB pelo navegador.
-</footer>
-
-<script>
-const controllersEl = document.getElementById("controllers");
-const emptyEl = document.getElementById("empty");
-const statusEl = document.getElementById("status");
-
-const cards = new Map();
-let loopStarted = false;
-
-const standardButtons = [
-  "A / Cruz", "B / Círculo", "X / Quadrado", "Y / Triângulo",
-  "L1", "R1", "L2", "R2",
-  "Select / Share", "Start / Options", "L3", "R3",
-  "D-Cima", "D-Baixo", "D-Esquerda", "D-Direita",
-  "Home", "Botão 18", "Botão 19", "Botão 20"
-];
-
-function detectBrand(id = "") {
-  const value = id.toLowerCase();
-
-  if (value.includes("xbox") || value.includes("xinput")) return "xbox";
-  if (
-    value.includes("playstation") ||
-    value.includes("dualshock") ||
-    value.includes("dualsense") ||
-    value.includes("sony")
-  ) return "playstation";
-
-  if (
-    value.includes("nintendo") ||
-    value.includes("switch") ||
-    value.includes("joy-con") ||
-    value.includes("pro controller")
-  ) return "nintendo";
-
-  return "generic";
-}
-
-function getLabels(brand) {
-  if (brand === "xbox") {
-    return {
-      bottom: "A",
-      right: "B",
-      left: "X",
-      top: "Y",
-      model: "Xbox / XInput",
-      accent: "#22d3ee"
-    };
-  }
-
-  if (brand === "playstation") {
-    return {
-      bottom: "✕",
-      right: "○",
-      left: "□",
-      top: "△",
-      model: "PlayStation / DualShock ou DualSense",
-      accent: "#22d3ee"
-    };
-  }
-
-  if (brand === "nintendo") {
-    return {
-      bottom: "B",
-      right: "A",
-      left: "Y",
-      top: "X",
-      model: "Nintendo Switch",
-      accent: "#fb7185"
-    };
-  }
-
-  return {
-    bottom: "A",
-    right: "B",
-    left: "X",
-    top: "Y",
-    model: "Controle USB genérico",
-    accent: "#22d3ee"
-  };
-}
-
-function createCard(gamepad) {
-  const brand = detectBrand(gamepad.id);
-  const labels = getLabels(brand);
-
-  const card = document.createElement("article");
-  card.className = "controller";
-  card.dataset.gamepadIndex = String(gamepad.index);
-
-  const buttonList = gamepad.buttons.map((_, index) => `
-    <div class="button" data-button="${index}">
-      <span>${standardButtons[index] || "Botão " + (index + 1)}</span>
-      <span class="button-value">0.00</span>
+  <div class="top">
+    <div class="logo">🎮</div>
+    <div>
+      <h1>Uni<span>Tools</span> Gamer</h1>
+      <div style="color:#94a3b8;font-size:13px;">Testador de controles USB</div>
     </div>
-  `).join("");
+  </div>
 
-  const axisList = gamepad.axes.map((_, index) => `
-    <div class="axis">
-      <span>Eixo ${index}</span>
-      <div class="meter"><div class="meter-fill" data-axis="${index}"></div></div>
-      <span class="axis-value" data-axis-value="${index}">0.00</span>
-    </div>
-  `).join("");
-
-  const vibrationSupported = Boolean(gamepad.vibrationActuator);
-
-  card.innerHTML = `
-    <div class="head">
-      <div>
-        <div class="title">Controle ${gamepad.index + 1}</div>
-        <div class="model">
-          <strong>${labels.model}</strong><br>
-          ${gamepad.id}<br>
-          Mapeamento: ${gamepad.mapping || "não informado"} •
-          Vibração: ${vibrationSupported ? "suportada" : "não suportada"}
-        </div>
-      </div>
-      <div class="badge">Conectado</div>
+  <div class="card">
+    <div class="status erro" id="status">
+      Conecte o controle USB e pressione qualquer botão.
     </div>
 
-    <div class="visual">
+    <div class="info" id="info">
+      Nenhum controle detectado.
+    </div>
+
+    <div class="error" id="error"></div>
+
+    <div class="gamepad" id="gamepad">
       <div class="shoulders">
         <div class="shoulder">
-          <button data-button="4">L1</button>
-          <button data-button="6">L2</button>
+          <div id="btn4">L1</div>
+          <div id="btn6">L2</div>
         </div>
 
         <div class="shoulder" style="text-align:right;">
-          <button data-button="5">R1</button>
-          <button data-button="7">R2</button>
+          <div id="btn5">R1</div>
+          <div id="btn7">R2</div>
         </div>
       </div>
 
-      <div class="gamepad">
-        <div class="cluster">
+      <div class="row">
+        <div class="side">
           <div class="dpad">
-            <button class="up" data-button="12">▲</button>
-            <button class="left" data-button="14">◀</button>
-            <button class="right" data-button="15">▶</button>
-            <button class="down" data-button="13">▼</button>
+            <div class="up" id="btn12">▲</div>
+            <div class="left" id="btn14">◀</div>
+            <div class="right" id="btn15">▶</div>
+            <div class="down" id="btn13">▼</div>
           </div>
 
           <div class="stick">
-            <div class="stick-dot" data-stick="left"></div>
+            <div class="stick-dot" id="stickLeft"></div>
           </div>
         </div>
 
         <div class="center">
-          <div class="center-logo">🎮</div>
+          <div style="width:70px;height:70px;border-radius:50%;border:1px solid #26313d;background:#131c2b;display:grid;place-items:center;font-size:24px;">
+            🎮
+          </div>
           UniTools<br>Gamer
         </div>
 
-        <div class="cluster">
+        <div class="side">
           <div class="face">
-            <button class="top" data-button="3">${labels.top}</button>
-            <button class="left" data-button="2">${labels.left}</button>
-            <button class="bottom" data-button="0">${labels.bottom}</button>
-            <button class="right" data-button="1">${labels.right}</button>
+            <div class="top" id="btn3">Y</div>
+            <div class="left" id="btn2">X</div>
+            <div class="bottom" id="btn0">A</div>
+            <div class="right" id="btn1">B</div>
           </div>
 
           <div class="stick">
-            <div class="stick-dot" data-stick="right"></div>
+            <div class="stick-dot" id="stickRight"></div>
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="block">
-      <div class="block-title">
-        <span>Botões</span>
-        <span>${gamepad.buttons.length} detectados</span>
-      </div>
-      <div class="buttons">${buttonList}</div>
-    </div>
+      <div class="buttons" id="buttons"></div>
 
-    <div class="block">
-      <div class="block-title">
-        <span>Eixos analógicos</span>
-        <span>${gamepad.axes.length} detectados</span>
-      </div>
-      <div class="axes">${axisList}</div>
-    </div>
-
-    <div class="block">
-      <div class="block-title">
-        <span>Vibração</span>
-        <span>${vibrationSupported ? "Disponível" : "Indisponível"}</span>
-      </div>
       <div class="vibration">
-        <input class="range" type="range" min="0" max="1" step="0.05" value="1" data-vibration="${gamepad.index}">
-        <button class="btn" data-test-vibration="${gamepad.index}">Vibrar</button>
+        <input type="range" id="force" min="0" max="1" step="0.05" value="1">
+        <button id="vibrate">Vibrar</button>
       </div>
     </div>
-  `;
+  </div>
 
-  controllersEl.appendChild(card);
+<script>
+(function () {
+  "use strict";
 
-  const vibrationButton = card.querySelector(`[data-test-vibration="${gamepad.index}"]`);
-  vibrationButton.addEventListener("click", () => vibrate(gamepad.index));
+  const statusEl = document.getElementById("status");
+  const infoEl = document.getElementById("info");
+  const errorEl = document.getElementById("error");
+  const gamepadEl = document.getElementById("gamepad");
+  const buttonsEl = document.getElementById("buttons");
+  const forceEl = document.getElementById("force");
+  const vibrateButton = document.getElementById("vibrate");
+  const stickLeft = document.getElementById("stickLeft");
+  const stickRight = document.getElementById("stickRight");
 
-  return card;
-}
+  let currentGamepad = null;
+  let buttonsCreated = false;
 
-function getGamepad(index) {
-  const gamepads = navigator.getGamepads();
-
-  for (const gamepad of gamepads) {
-    if (gamepad && gamepad.index === index) return gamepad;
+  function showError(message) {
+    errorEl.style.display = "block";
+    errorEl.textContent = String(message);
   }
 
-  return null;
-}
-
-function connect(event) {
-  const gamepad = event.gamepad;
-
-  if (!gamepad || cards.has(gamepad.index)) return;
-
-  const card = createCard(gamepad);
-  cards.set(gamepad.index, card);
-
-  emptyEl.style.display = "none";
-  statusEl.textContent = `${cards.size} controle(s) conectado(s).`;
-  startLoop();
-}
-
-function disconnect(event) {
-  const index = event.gamepad.index;
-  const card = cards.get(index);
-
-  if (card) {
-    card.remove();
-    cards.delete(index);
+  function clearError() {
+    errorEl.style.display = "none";
+    errorEl.textContent = "";
   }
 
-  if (cards.size === 0) {
-    emptyEl.style.display = "block";
-    statusEl.textContent = "Aguardando um controle ser detectado pelo navegador.";
-  } else {
-    statusEl.textContent = `${cards.size} controle(s) conectado(s).`;
+  function createButtons(gamepad) {
+    buttonsEl.innerHTML = "";
+
+    gamepad.buttons.forEach(function (button, index) {
+      const item = document.createElement("div");
+      item.className = "button";
+      item.id = "listButton" + index;
+
+      const name = document.createElement("div");
+      name.textContent = "Botão " + index;
+
+      const value = document.createElement("span");
+      value.id = "listValue" + index;
+      value.textContent = "0.00";
+
+      item.appendChild(name);
+      item.appendChild(value);
+      buttonsEl.appendChild(item);
+    });
+
+    buttonsCreated = true;
   }
-}
 
-function syncControllers() {
-  const gamepads = navigator.getGamepads();
-  const connected = new Set();
+  function update() {
+    try {
+      const gamepads = navigator.getGamepads();
+      let found = null;
 
-  for (const gamepad of gamepads) {
-    if (!gamepad) continue;
+      for (let i = 0; i < gamepads.length; i++) {
+        if (gamepads[i]) {
+          found = gamepads[i];
+          break;
+        }
+      }
 
-    connected.add(gamepad.index);
+      if (!found) {
+        currentGamepad = null;
+        gamepadEl.style.display = "none";
+        statusEl.textContent = "Conecte o controle USB e pressione qualquer botão.";
+        statusEl.className = "status erro";
+        infoEl.textContent = "Nenhum controle detectado.";
+        return;
+      }
 
-    if (!cards.has(gamepad.index)) {
-      const card = createCard(gamepad);
-      cards.set(gamepad.index, card);
+      if (currentGamepad !== found.index) {
+        currentGamepad = found.index;
+        buttonsCreated = false;
+        gamepadEl.style.display = "block";
+
+        statusEl.textContent = "Controle detectado.";
+        statusEl.className = "status ok";
+
+        infoEl.innerHTML =
+          "<strong>" + found.id + "</strong><br>" +
+          "Botões: " + found.buttons.length +
+          " • Eixos: " + found.axes.length +
+          " • Vibração: " + (found.vibrationActuator ? "suportada" : "não suportada");
+      }
+
+      if (!buttonsCreated) {
+        createButtons(found);
+      }
+
+      for (let i = 0; i < found.buttons.length; i++) {
+        const button = found.buttons[i];
+        const visual = document.getElementById("btn" + i);
+        const listItem = document.getElementById("listButton" + i);
+        const listValue = document.getElementById("listValue" + i);
+
+        const active = button.pressed || button.value > 0.05;
+
+        if (visual) {
+          if (active) {
+            visual.classList.add("on");
+          } else {
+            visual.classList.remove("on");
+          }
+        }
+
+        if (listItem) {
+          if (active) {
+            listItem.classList.add("on");
+          } else {
+            listItem.classList.remove("on");
+          }
+        }
+
+        if (listValue) {
+          listValue.textContent = button.value.toFixed(2);
+        }
+      }
+
+      const leftX = found.axes[0] || 0;
+      const leftY = found.axes[1] || 0;
+      const rightX = found.axes[2] || 0;
+      const rightY = found.axes[3] || 0;
+
+      stickLeft.style.transform =
+        "translate(" + (leftX * 22) + "px, " + (leftY * 22) + "px)";
+
+      stickRight.style.transform =
+        "translate(" + (rightX * 22) + "px, " + (rightY * 22) + "px)";
+
+    } catch (error) {
+      showError("Erro no JavaScript:\n" + error.message);
+    }
+
+    requestAnimationFrame(update);
+  }
+
+  function vibrate() {
+    try {
+      const gamepads = navigator.getGamepads();
+      let gamepad = null;
+
+      for (let i = 0; i < gamepads.length; i++) {
+        if (gamepads[i]) {
+          gamepad = gamepads[i];
+          break;
+        }
+      }
+
+      if (!gamepad) {
+        statusEl.textContent = "Nenhum controle detectado.";
+        statusEl.className = "status erro";
+        return;
+      }
+
+      const actuator = gamepad.vibrationActuator;
+
+      if (!actuator) {
+        statusEl.textContent = "Este controle não expõe vibração ao navegador.";
+        statusEl.className = "status erro";
+        return;
+      }
+
+      const strength = Number(forceEl.value);
+
+      if (typeof actuator.playEffect === "function") {
+        actuator.playEffect("dual-rumble", {
+          startDelay: 0,
+          duration: 500,
+          weakMagnitude: strength,
+          strongMagnitude: strength
+        });
+
+        statusEl.textContent = "Vibração enviada.";
+        statusEl.className = "status ok";
+        return;
+      }
+
+      if (typeof actuator.pulse === "function") {
+        actuator.pulse(strength, 500);
+        statusEl.textContent = "Vibração enviada pelo modo alternativo.";
+        statusEl.className = "status ok";
+        return;
+      }
+
+      statusEl.textContent = "Este navegador não oferece vibração compatível.";
+      statusEl.className = "status erro";
+
+    } catch (error) {
+      showError("Erro ao vibrar:\n" + error.message);
     }
   }
 
-  for (const index of [...cards.keys()]) {
-    if (!connected.has(index)) {
-      const card = cards.get(index);
-      if (card) card.remove();
-      cards.delete(index);
-    }
-  }
+  vibrateButton.addEventListener("click", vibrate);
 
-  emptyEl.style.display = cards.size ? "none" : "block";
-  statusEl.textContent = cards.size
-    ? `${cards.size} controle(s) conectado(s).`
-    : "Aguardando um controle ser detectado pelo navegador.";
+  window.addEventListener("gamepadconnected", function () {
+    clearError();
+    statusEl.textContent = "Controle conectado.";
+    statusEl.className = "status ok";
+  });
 
-  if (cards.size) startLoop();
-}
+  window.addEventListener("gamepaddisconnected", function () {
+    currentGamepad = null;
+    gamepadEl.style.display = "none";
+    statusEl.textContent = "Controle desconectado.";
+    statusEl.className = "status erro";
+  });
 
-function updateCard(gamepad) {
-  const card = cards.get(gamepad.index);
-  if (!card) return;
+  window.addEventListener("error", function (event) {
+    showError("Erro na página:\n" + event.message);
+  });
 
-  gamepad.buttons.forEach((button, index) => {
-    const visual = card.querySelector(`[data-button="${index}"]`);
-    const list = card.querySelector(`.buttons [data-button="${index}"]`);
+  requestAnimationFrame(update);
+})();
+</script>
 
-    const active = button.pressed || button.value > 0.05;
-
-    if (visual) visual.classList.toggle("on", active);
-    if (list) {
-      list.classList.toggle("on", active
+</body>
+</html>
