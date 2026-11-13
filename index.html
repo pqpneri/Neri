@@ -1,126 +1,998 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <!-- Prevenção de Cache -->
-  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-  <meta http-equiv="Pragma" content="no-cache">
-  <meta http-equiv="Expires" content="0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UniTools Gamer — Testador de Controles USB</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #05070d;
+    --surface: rgba(17, 24, 39, .78);
+    --surface-2: rgba(30, 41, 59, .55);
+    --border: rgba(148, 163, 184, .16);
+    --text: #eef2ff;
+    --muted: #94a3b8;
+    --cyan: #22d3ee;
+    --violet: #a855f7;
+    --green: #34d399;
+    --shadow: 0 25px 70px rgba(0, 0, 0, .45);
+  }
 
-  <title>UniGames CRM - Painel de Controle</title>
+  * { box-sizing: border-box; }
 
-  <!-- Vinculação do CSS com versão anti-cache -->
-  <link rel="stylesheet" href="style.css?v=3.0.0">
+  body {
+    margin: 0;
+    min-height: 100vh;
+    color: var(--text);
+    background:
+      radial-gradient(900px 500px at 12% -5%, rgba(34,211,238,.16), transparent 60%),
+      radial-gradient(800px 500px at 88% 8%, rgba(168,85,247,.16), transparent 62%),
+      radial-gradient(700px 500px at 50% 100%, rgba(52,211,153,.10), transparent 65%),
+      var(--bg);
+    font-family: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+    overflow-x: hidden;
+  }
 
-  <!-- Fonte e Ícones -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(148,163,184,.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(148,163,184,.05) 1px, transparent 1px);
+    background-size: 48px 48px;
+    mask-image: radial-gradient(circle at 50% 0%, #000 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .page { position: relative; z-index: 1; }
+
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 14px max(20px, calc((100vw - 1180px) / 2));
+    background: rgba(5,7,13,.72);
+    backdrop-filter: blur(18px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: var(--text);
+  }
+
+  .brand-icon {
+    width: 42px;
+    height: 42px;
+    display: grid;
+    place-items: center;
+    border-radius: 13px;
+    font-size: 21px;
+    background: linear-gradient(135deg, var(--cyan), var(--violet));
+    box-shadow: 0 10px 30px rgba(34,211,238,.28);
+  }
+
+  .brand-name {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -.4px;
+    line-height: 1;
+  }
+
+  .brand-name span {
+    background: linear-gradient(90deg, var(--cyan), var(--violet));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .brand-tag {
+    display: block;
+    margin-top: 3px;
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 1.6px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .nav-links { display: flex; align-items: center; gap: 8px; }
+
+  .nav-link {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 9px 13px;
+    border-radius: 10px;
+    transition: .2s;
+  }
+
+  .nav-link:hover {
+    color: var(--text);
+    background: var(--surface-2);
+  }
+
+  .hero {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 64px 20px 42px;
+    text-align: center;
+  }
+
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 14px;
+    border-radius: 999px;
+    border: 1px solid rgba(34,211,238,.28);
+    background: rgba(34,211,238,.08);
+    color: #a5f3fc;
+    font-size: 12.5px;
+    font-weight: 600;
+  }
+
+  .pill .dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--green);
+    box-shadow: 0 0 0 4px rgba(52,211,153,.15);
+  }
+
+  h1 {
+    max-width: 830px;
+    margin: 22px auto 16px;
+    font-family: "Space Grotesk", sans-serif;
+    font-size: clamp(38px, 7vw, 72px);
+    line-height: 1.02;
+    letter-spacing: -2px;
+  }
+
+  h1 .gradient {
+    background: linear-gradient(92deg, var(--cyan), #818cf8 45%, var(--violet));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .hero p {
+    max-width: 640px;
+    margin: 0 auto;
+    color: var(--muted);
+    font-size: 17px;
+    line-height: 1.65;
+  }
+
+  .hero-actions {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 28px;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 13px 22px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text);
+    font: inherit;
+    font-weight: 650;
+    cursor: pointer;
+    transition: .2s;
+  }
+
+  .btn:hover {
+    transform: translateY(-2px);
+    border-color: rgba(34,211,238,.5);
+    box-shadow: 0 12px 30px rgba(34,211,238,.12);
+  }
+
+  .btn-primary {
+    border: 0;
+    color: #04121a;
+    background: linear-gradient(100deg, var(--cyan), #818cf8);
+    box-shadow: 0 14px 34px rgba(34,211,238,.22);
+  }
+
+  .btn-primary:hover { filter: brightness(1.08); }
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+    max-width: 940px;
+    margin: 44px auto 0;
+  }
+
+  .stat {
+    padding: 18px;
+    border-radius: 16px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    backdrop-filter: blur(14px);
+    text-align: left;
+  }
+
+  .stat-value {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+  }
+
+  .stat-label {
+    margin-top: 4px;
+    color: var(--muted);
+    font-size: 12.5px;
+    font-weight: 600;
+  }
+
+  .section {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 26px 20px 60px;
+  }
+
+  .section-head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 18px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+
+  .section-title {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: clamp(24px, 3vw, 34px);
+    letter-spacing: -.8px;
+    margin: 0;
+  }
+
+  .section-sub {
+    margin: 6px 0 0;
+    color: var(--muted);
+    font-size: 14.5px;
+  }
+
+  .toolbar { display: flex; gap: 10px; flex-wrap: wrap; }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 470px), 1fr));
+    gap: 18px;
+  }
+
+  .controller {
+    position: relative;
+    overflow: hidden;
+    border-radius: 22px;
+    border: 1px solid var(--border);
+    background: linear-gradient(160deg, rgba(17,24,39,.92), rgba(9,13,22,.94));
+    box-shadow: var(--shadow);
+    padding: 22px;
+  }
+
+  .controller::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(120deg, rgba(34,211,238,.08), transparent 35%, rgba(168,85,247,.09));
+    pointer-events: none;
+  }
+
+  .controller-head {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .controller-title {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+  }
+
+  .controller-id {
+    margin-top: 6px;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.45;
+    word-break: break-word;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 7px 11px;
+    border-radius: 999px;
+    border: 1px solid rgba(52,211,153,.35);
+    background: rgba(52,211,153,.1);
+    color: var(--green);
+    font-size: 11px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .badge::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+    box-shadow: 0 0 10px currentColor;
+  }
+
+  .metrics {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-top: 18px;
+  }
+
+  .metric {
+    padding: 13px;
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    background: rgba(15,23,42,.55);
+  }
+
+  .metric-value {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--cyan);
+  }
+
+  .metric-label {
+    margin-top: 3px;
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .5px;
+    text-transform: uppercase;
+  }
+
+  .block {
+    margin-top: 20px;
+    padding: 16px;
+    border-radius: 16px;
+    border: 1px solid var(--border);
+    background: rgba(15,23,42,.45);
+  }
+
+  .block-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    font-size: 11.5px;
+    font-weight: 750;
+    letter-spacing: 1.3px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .buttons {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(88px, 1fr));
+    gap: 8px;
+  }
+
+  .button {
+    min-height: 58px;
+    display: grid;
+    align-content: center;
+    gap: 3px;
+    padding: 8px 6px;
+    border-radius: 11px;
+    border: 1px solid var(--border);
+    background: rgba(30,41,59,.4);
+    color: var(--muted);
+    font-size: 11.5px;
+    font-weight: 650;
+    text-align: center;
+    user-select: none;
+    transition: transform .06s, background .06s, border-color .06s, color .06s;
+  }
+
+  .button.active {
+    color: #fff;
+    border-color: rgba(34,211,238,.65);
+    background: rgba(34,211,238,.16);
+    transform: scale(.95);
+    box-shadow: 0 0 22px rgba(34,211,238,.16);
+  }
+
+  .button-value {
+    font-size: 10.5px;
+    color: var(--cyan);
+  }
+
+  .axes { display: grid; gap: 11px; }
+
+  .axis {
+    display: grid;
+    grid-template-columns: 74px 1fr 48px;
+    align-items: center;
+    gap: 10px;
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  .meter {
+    height: 9px;
+    border-radius: 999px;
+    background: rgba(2,6,23,.9);
+    border: 1px solid var(--border);
+    overflow: hidden;
+  }
+
+  .meter-fill {
+    height: 100%;
+    width: 50%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, var(--cyan), #818cf8);
+    transition: width .04s linear;
+  }
+
+  .axis-value {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+    color: #cbd5e1;
+  }
+
+  .sticks {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 14px;
+  }
+
+  .stick {
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    background: rgba(2,6,23,.55);
+    padding: 12px;
+  }
+
+  .stick-label {
+    margin-bottom: 9px;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 650;
+    color: var(--muted);
+  }
+
+  .stick-area {
+    position: relative;
+    height: 150px;
+    border-radius: 11px;
+    background: radial-gradient(circle at center, rgba(34,211,238,.05), transparent 70%);
+    border: 1px solid rgba(148,163,184,.1);
+    overflow: hidden;
+  }
+
+  .stick-area::before,
+  .stick-area::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    border: 1px dashed rgba(148,163,184,.22);
+  }
+
+  .stick-area::before { width: 72%; height: 72%; }
+  .stick-area::after { width: 42%; height: 42%; }
+
+  .stick-dot {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--cyan), #818cf8);
+    box-shadow: 0 0 22px rgba(34,211,238,.5);
+    transform: translate(-50%, -50%);
+    transition: transform .04s linear;
+  }
+
+  .vibration {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .range {
+    flex: 1;
+    min-width: 150px;
+    accent-color: var(--cyan);
+  }
+
+  .empty {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 48px 24px;
+    border-radius: 24px;
+    border: 1px dashed rgba(148,163,184,.25);
+    background: rgba(15,23,42,.5);
+    text-align: center;
+  }
+
+  .empty-icon {
+    width: 74px;
+    height: 74px;
+    margin: 0 auto 18px;
+    display: grid;
+    place-items: center;
+    border-radius: 22px;
+    font-size: 34px;
+    background: rgba(34,211,238,.1);
+    border: 1px solid rgba(34,211,238,.22);
+  }
+
+  .empty h3 {
+    margin: 0 0 8px;
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 24px;
+  }
+
+  .empty p {
+    margin: 0;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 14px;
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 20px 70px;
+  }
+
+  .feature {
+    padding: 20px;
+    border-radius: 18px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    backdrop-filter: blur(14px);
+  }
+
+  .feature-icon {
+    width: 44px;
+    height: 44px;
+    display: grid;
+    place-items: center;
+    margin-bottom: 14px;
+    border-radius: 13px;
+    font-size: 20px;
+    background: rgba(34,211,238,.1);
+    border: 1px solid rgba(34,211,238,.2);
+  }
+
+  .feature h3 {
+    margin: 0 0 7px;
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 18px;
+  }
+
+  .feature p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  footer {
+    border-top: 1px solid var(--border);
+    background: rgba(5,7,13,.7);
+    padding: 26px 20px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 13px;
+  }
+
+  footer strong { color: var(--text); }
+
+  @media (max-width: 640px) {
+    .nav-links { display: none; }
+    .hero { padding-top: 42px; }
+    .metrics { grid-template-columns: 1fr; }
+    .section { padding-bottom: 42px; }
+  }
+</style>
 </head>
 <body>
 
-  <div class="app-container">
-    <!-- Menu Lateral / Sidebar -->
-    <aside class="sidebar">
-      <div class="brand">
-        <i class="ph ph-game-controller"></i>
-        <span>UniGames CRM</span>
+<div class="page">
+
+  <nav class="nav">
+    <a class="brand" href="#">
+      <div class="brand-icon">🎮</div>
+      <div>
+        <div class="brand-name">Uni<span>Tools</span> Gamer</div>
+        <span class="brand-tag">Diagnóstico de controles</span>
       </div>
-      <nav class="menu">
-        <a href="#" class="active"><i class="ph ph-squares-four"></i> Dashboard</a>
-        <a href="#"><i class="ph ph-users"></i> Clientes</a>
-        <a href="#"><i class="ph ph-shopping-cart"></i> Vendas (PDV)</a>
-        <a href="#"><i class="ph ph-file-arrow-up"></i> Importar Dados</a>
-        <a href="#"><i class="ph ph-chat-circle-dots"></i> Mensagens VIP</a>
-        <a href="#"><i class="ph ph-gear"></i> Configurações</a>
-      </nav>
-    </aside>
+    </a>
 
-    <!-- Área Principal -->
-    <main class="main-content">
-      
-      <!-- Topbar -->
-      <header class="topbar">
-        <div class="search-bar">
-          <i class="ph ph-magnifying-glass"></i>
-          <input type="text" placeholder="Buscar cliente, número de PDV ou transação...">
-        </div>
-        <div class="user-profile">
-          <i class="ph ph-bell icon-bell"></i>
-          <div class="avatar">LN</div>
-          <div class="user-info">
-            <span class="name">Leandro Neri</span>
-            <span class="role">Administrador</span>
+    <div class="nav-links">
+      <a class="nav-link" href="#testar">Testar controle</a>
+      <a class="nav-link" href="#recursos">Recursos</a>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="pill"><span class="dot"></span> Teste pelo navegador — sem instalação</div>
+
+    <h1>Teste seu controle USB com <span class="gradient">UniTools Gamer</span></h1>
+
+    <p>
+      Conecte seu gamepad pelo cabo USB, pressione qualquer botão e visualize botões,
+      analógicos, gatilhos, eixos e vibração em tempo real.
+    </p>
+
+    <div class="hero-actions">
+      <button class="btn btn-primary" id="vibrateAll">⚡ Testar vibração</button>
+      <button class="btn" id="refresh">🔄 Atualizar controles</button>
+    </div>
+
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-value" id="statControllers">0</div>
+        <div class="stat-label">Controles conectados</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value" id="statButtons">0</div>
+        <div class="stat-label">Botões detectados</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value" id="statAxes">0</div>
+        <div class="stat-label">Eixos analógicos</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value" id="statPressed">0</div>
+        <div class="stat-label">Botões ativos agora</div>
+      </div>
+    </div>
+  </header>
+
+  <section class="section" id="testar">
+    <div class="section-head">
+      <div>
+        <h2 class="section-title">Painel de diagnóstico</h2>
+        <p class="section-sub" id="status">Aguardando um controle ser detectado pelo navegador.</p>
+      </div>
+
+      <div class="toolbar">
+        <button class="btn" id="vibrateAll2">Vibrar todos</button>
+      </div>
+    </div>
+
+    <div class="grid" id="controllers"></div>
+
+    <div class="empty" id="empty">
+      <div class="empty-icon">🕹️</div>
+      <h3>Conecte seu controle</h3>
+      <p>
+        Plugue o gamepad no computador pelo USB e pressione qualquer botão.
+        O UniTools Gamer detecta automaticamente os controles compatíveis.
+      </p>
+    </div>
+  </section>
+
+  <section class="features" id="recursos">
+    <article class="feature">
+      <div class="feature-icon">🎯</div>
+      <h3>Teste completo</h3>
+      <p>Verifique botões, direcionais, gatilhos analógicos e eixos do controle em tempo real.</p>
+    </article>
+
+    <article class="feature">
+      <div class="feature-icon">📳</div>
+      <h3>Vibração</h3>
+      <p>Envie um teste de vibração ao gamepad, quando o navegador e o hardware forem compatíveis.</p>
+    </article>
+
+    <article class="feature">
+      <div class="feature-icon">🎮</div>
+      <h3>Múltiplos controles</h3>
+      <p>Conecte e teste vários gamepads USB ao mesmo tempo, cada um em seu próprio painel.</p>
+    </article>
+
+    <article class="feature">
+      <div class="feature-icon">🧭</div>
+      <h3>Analógicos visuais</h3>
+      <p>Acompanhe o movimento dos sticks esquerdo e direito para identificar falhas ou drift.</p>
+    </article>
+  </section>
+
+  <footer>
+    <strong>UniTools Gamer</strong> — ferramenta gratuita para testar controles de videogame pelo navegador.
+  </footer>
+
+</div>
+
+<script>
+const controllersEl = document.getElementById("controllers");
+const emptyEl = document.getElementById("empty");
+const statusEl = document.getElementById("status");
+const statControllers = document.getElementById("statControllers");
+const statButtons = document.getElementById("statButtons");
+const statAxes = document.getElementById("statAxes");
+const statPressed = document.getElementById("statPressed");
+
+const buttonNames = [
+  "A / Cruz", "B / Círculo", "X / Quadrado", "Y / Triângulo",
+  "L1", "R1", "L2", "R2",
+  "Select / Share", "Start / Options", "L3", "R3",
+  "D-Cima", "D-Baixo", "D-Esquerda", "D-Direita",
+  "Home", "Extra 17", "Extra 18", "Extra 19"
+];
+
+const state = new Map();
+
+function connect(event) {
+  const gamepad = event.gamepad;
+  if (state.has(gamepad.index)) return;
+
+  const card = createController(gamepad);
+  state.set(gamepad.index, card);
+
+  emptyEl.style.display = "none";
+  updateStats();
+  statusEl.textContent = `${state.size} controle(s) conectado(s).`;
+}
+
+function disconnect(event) {
+  state.delete(event.gamepad.index);
+
+  if (state.size === 0) {
+    emptyEl.style.display = "block";
+    statusEl.textContent = "Aguardando um controle ser detectado pelo navegador.";
+  } else {
+    statusEl.textContent = `${state.size} controle(s) conectado(s).`;
+  }
+
+  updateStats();
+}
+
+function createController(gamepad) {
+  const card = document.createElement("article");
+  card.className = "controller";
+  card.dataset.index = gamepad.index;
+
+  const buttons = gamepad.buttons.map((_, index) => `
+    <div class="button" data-button="${index}">
+      <span>${buttonNames[index] || "Botão " + (index + 1)}</span>
+      <span class="button-value">0.00</span>
+    </div>
+  `).join("");
+
+  const axes = gamepad.axes.map((_, index) => `
+    <div class="axis">
+      <span>Eixo ${index}</span>
+      <div class="meter"><div class="meter-fill" data-axis="${index}"></div></div>
+      <span class="axis-value" data-axis-value="${index}">0.00</span>
+    </div>
+  `).join("");
+
+  card.innerHTML = `
+    <div class="controller-head">
+      <div>
+        <div class="controller-title">Controle ${gamepad.index + 1}</div>
+        <div class="controller-id">${gamepad.id}</div>
+      </div>
+      <div class="badge">Conectado</div>
+    </div>
+
+    <div class="metrics">
+      <div class="metric">
+        <div class="metric-value" data-metric="buttons">${gamepad.buttons.length}</div>
+        <div class="metric-label">Botões</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value" data-metric="axes">${gamepad.axes.length}</div>
+        <div class="metric-label">Eixos</div>
+      </div>
+      <div class="metric">
+        <div class="metric-value" data-metric="active">0</div>
+        <div class="metric-label">Ativos</div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-title">
+        <span>Botões</span>
+        <span>Pressione para testar</span>
+      </div>
+      <div class="buttons">${buttons}</div>
+    </div>
+
+    <div class="block">
+      <div class="block-title">
+        <span>Eixos analógicos</span>
+        <span>Valores de -1 a 1</span>
+      </div>
+      <div class="axes">${axes}</div>
+    </div>
+
+    <div class="block">
+      <div class="block-title"><span>Analógicos</span><span>Mova os sticks</span></div>
+      <div class="sticks">
+        <div class="stick">
+          <div class="stick-label">Analógico esquerdo</div>
+          <div class="stick-area">
+            <div class="stick-dot" data-stick="left"></div>
           </div>
         </div>
-      </header>
 
-      <!-- Cards de Indicadores (KPIs) -->
-      <section class="kpi-grid">
-        <div class="kpi-card">
-          <div class="kpi-icon blue"><i class="ph ph-currency-dollar"></i></div>
-          <div class="kpi-data">
-            <span class="title">Faturamento Total</span>
-            <h2>R$ 51.284,83</h2>
-            <span class="badge positive">+12.5% este mês</span>
+        <div class="stick">
+          <div class="stick-label">Analógico direito</div>
+          <div class="stick-area">
+            <div class="stick-dot" data-stick="right"></div>
           </div>
         </div>
+      </div>
+    </div>
 
-        <div class="kpi-card">
-          <div class="kpi-icon purple"><i class="ph ph-receipt"></i></div>
-          <div class="kpi-data">
-            <span class="title">Total de Vendas</span>
-            <h2>99 PDVs</h2>
-            <span class="badge neutral">Período Ativo</span>
-          </div>
-        </div>
+    <div class="block">
+      <div class="block-title"><span>Vibração</span><span>Teste de rumble</span></div>
+      <div class="vibration">
+        <input class="range" type="range" min="0" max="1" step="0.05" value="1" data-vibration="${gamepad.index}">
+        <button class="btn" data-test-vibration="${gamepad.index}">Vibrar</button>
+      </div>
+    </div>
+  `;
 
-        <div class="kpi-card">
-          <div class="kpi-icon green"><i class="ph ph-chart-line-up"></i></div>
-          <div class="kpi-data">
-            <span class="title">Ticket Médio</span>
-            <h2>R$ 518,02</h2>
-            <span class="badge positive">+4.1% vs anterior</span>
-          </div>
-        </div>
+  controllersEl.appendChild(card);
 
-        <div class="kpi-card">
-          <div class="kpi-icon orange"><i class="ph ph-paper-plane-tilt"></i></div>
-          <div class="kpi-data">
-            <span class="title">Mensagens Enviadas</span>
-            <h2>342</h2>
-            <span class="badge positive">98% Entregues</span>
-          </div>
-        </div>
-      </section>
+  card.querySelector(`[data-test-vibration="${gamepad.index}"]`)
+    .addEventListener("click", () => vibrate(gamepad.index));
 
-      <!-- Módulo de Importação de Arquivos (CSV / XLSX / PDF) -->
-      <section class="section-container">
-        <div class="section-header">
-          <h3><i class="ph ph-file-arrow-up"></i> Importação de Relatórios e PDVs</h3>
-          <p>Carregue suas planilhas (CSV, XLSX) ou relatórios em PDF para importar os registros para o sistema.</p>
-        </div>
-        
-        <div class="upload-zone" id="drop-zone">
-          <div class="upload-icon-wrapper">
-            <i class="ph ph-cloud-arrow-up"></i>
-          </div>
-          <h4>Arraste seu arquivo para esta área</h4>
-          <p>Suporta arquivos de até 50MB (.CSV, .XLSX, .PDF)</p>
-          <label for="file-input" class="btn-primary">
-            <i class="ph ph-folder-open"></i> Selecionar Arquivo
-          </label>
-          <input type="file" id="file-input" hidden accept=".csv, .xlsx, .pdf">
-        </div>
-      </section>
+  return card;
+}
 
-    </main>
-  </div>
+function updateStats() {
+  let buttons = 0;
+  let axes = 0;
 
-  <!-- Script vinculado com anti-cache -->
-  <script src="script.js?v=3.0.0"></script>
+  for (const gamepad of navigator.getGamepads()) {
+    if (!gamepad) continue;
+    buttons += gamepad.buttons.length;
+    axes += gamepad.axes.length;
+  }
+
+  statControllers.textContent = state.size;
+  statButtons.textContent = buttons;
+  statAxes.textContent = axes;
+}
+
+function update() {
+  const gamepads = navigator.getGamepads();
+  let totalPressed = 0;
+
+  for (const gamepad of gamepads) {
+    if (!gamepad || !state.has(gamepad.index)) continue;
+
+    const card = state.get(gamepad.index);
+    let activeButtons = 0;
+
+    gamepad.buttons.forEach((button, index) => {
+      const element = card.querySelector(`[data-button="${index}"]`);
+      if (!element) return;
+
+      const active = button.pressed || button.value > 0.05;
+      element.classList.toggle("active", active);
+      element.querySelector(".button-value").textContent = button.value.toFixed(2);
+
+      if (active) activeButtons++;
+    });
+
+    totalPressed += activeButtons;
+    card.querySelector('[data-metric="active"]').textContent = activeButtons;
+
+    gamepad.axes.forEach((value, index) => {
+      const fill = card.querySelector(`[data-axis="${index}"]`);
+      const label = card.querySelector(`[data-axis-value="${index}"]`);
+      if (!fill || !label) return;
+
+      fill.style.width = `${((value + 1) / 2) * 100}%`;
+      label.textContent = value.toFixed(2);
+    });
+
+    moveStick(card, "left", gamepad.axes[0] ?? 0, gamepad.axes[1] ?? 0);
+    moveStick(card, "right", gamepad.axes[2] ?? 0, gamepad.axes[3] ?? 0);
+  }
+
+  statPressed.textContent = totalPressed;
+  requestAnimationFrame(update);
+}
+
+function moveStick(card, side, x, y) {
+  const dot = card.querySelector(`[data-stick="${side}"]`);
+  if (!dot) return;
+
+  const limit = 52;
+  dot.style.transform = `translate(calc(-50% + ${x * limit}px), calc(-50% + ${y * limit}px))`;
+}
+
+async function vibrate(index) {
+  const gamepad = navigator.getGamepads()[index];
+  const slider = document.querySelector(`[data-vibration="${index}"]`);
+  const strength = Number(slider?.value ?? 1);
+  const actuator = gamepad?.vibrationActuator;
+
+  if (!actuator?.playEffect) {
+    statusEl.textContent = "Este controle ou navegador não informou suporte à vibração.";
+    return;
+  }
+
+  try {
+    await actuator.playEffect("dual-rumble", {
+      startDelay: 0,
+      duration: 400,
+      weakMagnitude: strength,
+      strongMagnitude: strength
+    });
+
+    statusEl.textContent = "Vibração enviada com sucesso.";
+  } catch {
+    statusEl.textContent = "Não foi possível ativar a vibração neste controle.";
+  }
+}
+
+function vibrateAll() {
+  for (const index of state.keys()) vibrate(index);
+}
+
+document.getElementById("vibrateAll").addEventListener("click", vibrateAll);
+document.getElementById("vibrateAll2").addEventListener("click", vibrateAll);
+
+document.getElementById("refresh").addEventListener("click", () => {
+  for (const gamepad of navigator.getGamepads()) {
+    if (gamepad && !state.has(gamepad.index)) {
+      connect({ gamepad });
+    }
+  }
+
+  updateStats();
+  statusEl.textContent = state.size
+    ? `${state.size} controle(s) conectado(s).`
+    : "Nenhum controle detectado ainda.";
+});
+
+window.addEventListener("gamepadconnected", connect);
+window.addEventListener("gamepaddisconnected", disconnect);
+requestAnimationFrame(update);
+</script>
+
 </body>
 </html>
