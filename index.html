@@ -10,125 +10,78 @@
 
   body {
     margin: 0;
-    padding: 30px 20px 60px;
-    background: #f6f8fb;
-    color: #101826;
+    padding: 24px 16px 50px;
+    background: #0b1120;
+    color: #e2e8f0;
     font-family: Arial, sans-serif;
   }
 
   .topo {
-    max-width: 1000px;
-    margin: 0 auto 26px;
+    max-width: 760px;
+    margin: 0 auto 20px;
     display: flex;
     align-items: center;
-    gap: 14px;
+    gap: 12px;
   }
 
   .logo {
-    width: 56px;
-    height: 56px;
+    width: 46px;
+    height: 46px;
     display: grid;
     place-items: center;
-    font-size: 26px;
-    border-radius: 16px;
-    background: linear-gradient(135deg, #06b6d4, #8b5cf6);
-    color: #fff;
-    box-shadow: 0 10px 25px rgba(6,182,212,.25);
+    font-size: 22px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #22d3ee, #8b5cf6);
   }
 
-  h1 { margin: 0; font-size: 26px; }
-  h1 span { color: #0891b2; }
+  h1 { margin: 0; font-size: 22px; }
+  h1 span { color: #22d3ee; }
 
   .subtitulo {
-    color: #64748b;
-    font-size: 11px;
+    color: #94a3b8;
+    font-size: 10px;
     font-weight: bold;
-    letter-spacing: 1.4px;
+    letter-spacing: 1.2px;
     text-transform: uppercase;
-    margin-top: 4px;
-  }
-
-  .hero {
-    max-width: 1000px;
-    margin: 0 auto 24px;
-    text-align: center;
-  }
-
-  .selo {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 14px;
-    border-radius: 999px;
-    border: 1px solid #bae6fd;
-    background: #e0f2fe;
-    color: #0369a1;
-    font-size: 12px;
-    font-weight: bold;
-  }
-
-  .selo span {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: #22c55e;
-  }
-
-  .hero h2 {
-    margin: 16px auto 10px;
-    font-size: clamp(26px, 5vw, 40px);
-  }
-
-  .hero h2 em {
-    color: #0891b2;
-    font-style: normal;
-  }
-
-  .hero p {
-    max-width: 600px;
-    margin: 0 auto;
-    color: #64748b;
-    font-size: 15px;
-    line-height: 1.6;
+    margin-top: 3px;
   }
 
   .card {
-    max-width: 1000px;
+    max-width: 760px;
     margin: 0 auto;
-    padding: 22px;
-    border-radius: 22px;
-    background: #ffffff;
-    border: 1px solid #e2e8f0;
-    box-shadow: 0 20px 50px rgba(15,23,42,.08);
+    padding: 18px;
+    border-radius: 18px;
+    background: #111827;
+    border: 1px solid #1f2937;
   }
 
   .status {
-    font-size: 19px;
+    font-size: 16px;
     font-weight: bold;
-    margin-bottom: 6px;
+    margin-bottom: 4px;
   }
 
-  .verde { color: #16a34a; }
-  .vermelho { color: #dc2626; }
+  .verde { color: #34d399; }
+  .vermelho { color: #fb7185; }
 
   .info {
-    color: #64748b;
-    font-size: 13px;
-    line-height: 1.6;
-    margin-bottom: 18px;
+    color: #94a3b8;
+    font-size: 12px;
+    line-height: 1.5;
+    margin-bottom: 16px;
     word-break: break-word;
   }
 
-  .info strong { color: #101826; }
+  .info strong { color: #e2e8f0; }
 
   .erro {
     display: none;
-    margin-bottom: 16px;
-    padding: 12px;
+    margin-bottom: 14px;
+    padding: 10px;
     border-radius: 10px;
-    background: #fee2e2;
-    border: 1px solid #fca5a5;
-    color: #991b1b;
+    background: rgba(251,113,133,.12);
+    border: 1px solid #fb7185;
+    color: #fecdd3;
     font-family: monospace;
     white-space: pre-wrap;
   }
@@ -137,240 +90,311 @@
 
   .metricas {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 10px;
-    margin-bottom: 18px;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 8px;
+    margin-bottom: 16px;
   }
 
   .metrica {
-    padding: 14px;
-    border-radius: 14px;
-    border: 1px solid #e2e8f0;
-    background: #f8fafc;
+    padding: 10px;
+    border-radius: 12px;
+    border: 1px solid #1f2937;
+    background: #0b1220;
   }
 
   .metrica-valor {
-    font-size: 20px;
+    font-size: 16px;
     font-weight: bold;
-    color: #0891b2;
+    color: #22d3ee;
   }
 
   .metrica-rotulo {
-    margin-top: 4px;
-    color: #64748b;
-    font-size: 10px;
+    margin-top: 3px;
+    color: #94a3b8;
+    font-size: 9px;
     font-weight: bold;
     text-transform: uppercase;
   }
 
   .controle {
-    padding: 22px;
-    border-radius: 18px;
-    background: #f8fafc;
-    border: 1px solid #e2e8f0;
+    padding: 16px;
+    border-radius: 16px;
+    background: #0b1220;
+    border: 1px solid #1f2937;
   }
 
-  .ombros {
-    display: flex;
-    justify-content: space-between;
-    gap: 14px;
-    margin-bottom: 20px;
-  }
-
-  .lado {
-    flex: 1;
-    display: grid;
-    gap: 8px;
-  }
-
-  .ombro {
-    height: 42px;
-    display: grid;
-    place-items: center;
-    border-radius: 12px;
-    border: 1px solid #e2e8f0;
-    background: #ffffff;
-    color: #64748b;
-    font-size: 12px;
+  .modelo {
+    text-align: center;
+    color: #94a3b8;
+    font-size: 11px;
     font-weight: bold;
+    margin-bottom: 12px;
+  }
+
+  .gamepad {
+    position: relative;
+    max-width: 420px;
+    margin: 0 auto;
+    aspect-ratio: 2.1 / 1;
   }
 
   .corpo {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 18px;
+    position: absolute;
+    inset: 12% 6%;
+    border-radius: 70px;
+    background: linear-gradient(160deg, #1e293b, #0f172a);
+    border: 1px solid #334155;
+    box-shadow: inset 0 0 30px rgba(0,0,0,.4);
   }
 
-  .grupo {
+  .parte {
+    position: absolute;
     display: grid;
-    gap: 16px;
-    justify-items: center;
+    place-items: center;
+    border-radius: 50%;
+    border: 1px solid #334155;
+    background: #0f172a;
+    color: #94a3b8;
+    font-size: 10px;
+    font-weight: bold;
+    transition: .07s;
   }
+
+  .parte.on {
+    color: #fff;
+    border-color: #22d3ee;
+    background: rgba(34,211,238,.22);
+    box-shadow: 0 0 14px rgba(34,211,238,.35);
+    transform: scale(.94);
+  }
+
+  .face-a { right: 20%; top: 54%; width: 13%; aspect-ratio: 1; }
+  .face-b { right: 28%; top: 40%; width: 13%; aspect-ratio: 1; }
+  .face-x { right: 28%; top: 68%; width: 13%; aspect-ratio: 1; }
+  .face-y { right: 36%; top: 54%; width: 13%; aspect-ratio: 1; }
 
   .dpad {
-    width: 120px;
-    height: 120px;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(3, 1fr);
-    gap: 4px;
+    left: 20%;
+    top: 54%;
+    width: 34%;
+    aspect-ratio: 1;
+    transform: translate(-50%, -50%);
+    border: 0;
+    background: transparent;
   }
 
   .dpad div {
-    display: grid;
-    place-items: center;
-    border-radius: 10px;
-    border: 1px solid #e2e8f0;
-    background: #ffffff;
-    color: #64748b;
-    font-size: 13px;
-    font-weight: bold;
-  }
-
-  .dpad .cima { grid-area: 1 / 2; }
-  .dpad .esquerda { grid-area: 2 / 1; }
-  .dpad .direita { grid-area: 2 / 3; }
-  .dpad .baixo { grid-area: 3 / 2; }
-
-  .stick {
-    width: 104px;
-    height: 104px;
-    border-radius: 50%;
-    border: 1px solid #e2e8f0;
-    background: #ffffff;
-    display: grid;
-    place-items: center;
-    position: relative;
-  }
-
-  .stick-rotulo {
     position: absolute;
-    bottom: 6px;
-    color: #64748b;
+    width: 32%;
+    height: 32%;
+    display: grid;
+    place-items: center;
+    border-radius: 8px;
+    border: 1px solid #334155;
+    background: #0f172a;
+    color: #94a3b8;
     font-size: 9px;
     font-weight: bold;
+    transition: .07s;
+  }
+
+  .dpad div.on {
+    color: #fff;
+    border-color: #22d3ee;
+    background: rgba(34,211,238,.22);
+    box-shadow: 0 0 12px rgba(34,211,238,.3);
+  }
+
+  .dpad .cima { left: 34%; top: 0; }
+  .dpad .baixo { left: 34%; bottom: 0; }
+  .dpad .esquerda { left: 0; top: 34%; }
+  .dpad .direita { right: 0; top: 34%; }
+
+  .stick {
+    position: absolute;
+    width: 15%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    border: 1px solid #334155;
+    background: #0f172a;
+    display: grid;
+    place-items: center;
   }
 
   .stick-dot {
-    width: 40px;
-    height: 40px;
+    width: 42%;
+    height: 42%;
     border-radius: 50%;
-    background: linear-gradient(135deg, #06b6d4, #8b5cf6);
+    background: linear-gradient(135deg, #22d3ee, #818cf8);
     transition: transform .04s linear;
   }
 
-  .centro {
+  .stick-esquerdo { left: 24%; top: 54%; transform: translate(-50%, -50%); }
+  .stick-direito { right: 24%; top: 54%; transform: translate(50%, -50%); }
+
+  .ombro {
+    position: absolute;
+    top: 16%;
+    width: 15%;
+    height: 10%;
+    border-radius: 8px;
+    border: 1px solid #334155;
+    background: #0f172a;
+    color: #94a3b8;
+    font-size: 9px;
+    font-weight: bold;
     display: grid;
     place-items: center;
-    gap: 10px;
-    color: #64748b;
-    font-size: 10px;
+    transition: .07s;
+  }
+
+  .ombro.on {
+    color: #fff;
+    border-color: #22d3ee;
+    background: rgba(34,211,238,.22);
+    box-shadow: 0 0 12px rgba(34,211,238,.3);
+  }
+
+  .ombro-esquerdo { left: 24%; transform: translateX(-50%); }
+  .ombro-direito { right: 24%; transform: translateX(50%); }
+
+  .gatilho {
+    position: absolute;
+    top: 4%;
+    width: 15%;
+    height: 10%;
+    border-radius: 8px;
+    border: 1px solid #334155;
+    background: #0f172a;
+    color: #94a3b8;
+    font-size: 9px;
+    font-weight: bold;
+    display: grid;
+    place-items: center;
+    transition: .07s;
+  }
+
+  .gatilho.on {
+    color: #fff;
+    border-color: #a855f7;
+    background: rgba(168,85,247,.22);
+    box-shadow: 0 0 12px rgba(168,85,247,.3);
+  }
+
+  .gatilho-esquerdo { left: 24%; transform: translateX(-50%); }
+  .gatilho-direito { right: 24%; transform: translateX(50%); }
+
+  .centro {
+    position: absolute;
+    left: 50%;
+    top: 54%;
+    transform: translate(-50%, -50%);
+    display: grid;
+    gap: 6px;
+    justify-items: center;
+    color: #94a3b8;
+    font-size: 8px;
     font-weight: bold;
     text-transform: uppercase;
     text-align: center;
   }
 
   .centro-logo {
-    width: 68px;
-    height: 68px;
+    width: 34px;
+    height: 34px;
     display: grid;
     place-items: center;
     border-radius: 50%;
-    border: 1px solid #e2e8f0;
-    background: #ffffff;
-    font-size: 24px;
+    border: 1px solid #334155;
+    background: #0f172a;
+    font-size: 14px;
   }
 
   .botoes-centrais {
     display: flex;
-    gap: 8px;
-    justify-content: center;
+    gap: 5px;
   }
 
   .botao-central {
-    width: 38px;
-    height: 38px;
+    width: 18px;
+    height: 18px;
     display: grid;
     place-items: center;
     border-radius: 50%;
-    border: 1px solid #e2e8f0;
-    background: #ffffff;
-    color: #64748b;
-    font-size: 8px;
+    border: 1px solid #334155;
+    background: #0f172a;
+    color: #94a3b8;
+    font-size: 6px;
     font-weight: bold;
-    text-align: center;
+    transition: .07s;
   }
 
-  .face {
-    display: grid;
-    grid-template-columns: repeat(3, 50px);
-    grid-template-rows: repeat(3, 50px);
-    gap: 8px;
-    justify-items: center;
-    align-items: center;
+  .botao-central.on {
+    color: #fff;
+    border-color: #22d3ee;
+    background: rgba(34,211,238,.22);
+    box-shadow: 0 0 10px rgba(34,211,238,.3);
   }
 
-  .face div {
-    width: 50px;
-    height: 50px;
+  .home {
+    position: absolute;
+    left: 50%;
+    top: 78%;
+    transform: translate(-50%, -50%);
+    width: 22px;
+    height: 22px;
     display: grid;
     place-items: center;
     border-radius: 50%;
-    border: 1px solid #e2e8f0;
-    background: #ffffff;
-    color: #64748b;
-    font-size: 16px;
-    font-weight: bold;
+    border: 1px solid #334155;
+    background: #0f172a;
+    color: #94a3b8;
+    font-size: 10px;
+    transition: .07s;
   }
 
-  .face .cima { grid-area: 1 / 2; }
-  .face .esquerda { grid-area: 2 / 1; }
-  .face .baixo { grid-area: 2 / 2; }
-  .face .direita { grid-area: 2 / 3; }
-
-  .ativo {
-    background: #06b6d4 !important;
-    border-color: #0891b2 !important;
-    color: #ffffff !important;
-    box-shadow: 0 0 0 4px rgba(6,182,212,.18);
+  .home.on {
+    color: #fff;
+    border-color: #22d3ee;
+    background: rgba(34,211,238,.22);
+    box-shadow: 0 0 10px rgba(34,211,238,.3);
   }
 
   .bloco {
-    margin-top: 18px;
-    padding: 16px;
-    border-radius: 16px;
-    border: 1px solid #e2e8f0;
-    background: #f8fafc;
+    margin-top: 16px;
+    padding: 14px;
+    border-radius: 14px;
+    border: 1px solid #1f2937;
+    background: #0b1220;
   }
 
   .bloco-titulo {
     display: flex;
     justify-content: space-between;
     gap: 10px;
-    margin-bottom: 12px;
-    color: #64748b;
-    font-size: 10px;
+    margin-bottom: 10px;
+    color: #94a3b8;
+    font-size: 9px;
     font-weight: bold;
     text-transform: uppercase;
   }
 
   .botoes {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-    gap: 8px;
+    grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+    gap: 6px;
   }
 
   .botao {
-    min-height: 50px;
+    min-height: 44px;
     display: grid;
     align-content: center;
-    gap: 4px;
-    padding: 8px;
+    gap: 3px;
+    padding: 6px;
     border-radius: 10px;
-    border: 1px solid #e2e8f0;
-    background: #ffffff;
-    color: #64748b;
+    border: 1px solid #1f2937;
+    background: #0f172a;
+    color: #94a3b8;
     font-size: 10px;
     font-weight: bold;
     text-align: center;
@@ -378,78 +402,78 @@
 
   .botao span {
     font-size: 9px;
-    color: #0891b2;
+    color: #22d3ee;
   }
 
   .eixos {
     display: grid;
-    gap: 10px;
+    gap: 8px;
   }
 
   .eixo {
     display: grid;
-    grid-template-columns: 70px 1fr 46px;
+    grid-template-columns: 60px 1fr 40px;
     align-items: center;
-    gap: 10px;
-    color: #64748b;
-    font-size: 11px;
+    gap: 8px;
+    color: #94a3b8;
+    font-size: 10px;
   }
 
   .medidor {
-    height: 8px;
+    height: 7px;
     border-radius: 999px;
-    background: #e2e8f0;
+    background: #060b13;
+    border: 1px solid #1f2937;
     overflow: hidden;
   }
 
   .medidor-fill {
     height: 100%;
     width: 50%;
-    background: linear-gradient(90deg, #06b6d4, #8b5cf6);
+    background: linear-gradient(90deg, #22d3ee, #818cf8);
   }
 
   .valor {
     text-align: right;
-    color: #334155;
+    color: #cbd5e1;
   }
 
   .vibracao {
-    margin-top: 18px;
+    margin-top: 16px;
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
     flex-wrap: wrap;
   }
 
   input[type="range"] {
     flex: 1;
-    min-width: 140px;
-    accent-color: #0891b2;
+    min-width: 120px;
+    accent-color: #22d3ee;
   }
 
   button {
-    padding: 11px 16px;
+    padding: 10px 14px;
     border: 0;
     border-radius: 10px;
-    background: #0891b2;
-    color: #ffffff;
+    background: #22d3ee;
+    color: #04121a;
     font-weight: bold;
     cursor: pointer;
   }
 
   footer {
-    max-width: 1000px;
-    margin: 24px auto 0;
-    color: #64748b;
-    font-size: 12px;
+    max-width: 760px;
+    margin: 20px auto 0;
+    color: #94a3b8;
+    font-size: 11px;
     text-align: center;
   }
 
-  footer strong { color: #101826; }
+  footer strong { color: #e2e8f0; }
 
-  @media (max-width: 700px) {
-    .corpo { flex-direction: column; }
-    .ombros { flex-direction: column; }
+  @media (max-width: 600px) {
+    .gamepad { aspect-ratio: 1.7 / 1; }
   }
 </style>
 </head>
@@ -462,16 +486,6 @@
     <h1>Uni<span>Tools</span> Gamer</h1>
     <div class="subtitulo">Diagnóstico de controles USB</div>
   </div>
-</div>
-
-<div class="hero">
-  <div class="selo"><span></span> Teste pelo navegador — sem instalação</div>
-
-  <h2>Teste seu controle USB com <em>UniTools Gamer</em></h2>
-
-  <p>
-    Conecte o controle, pressione qualquer botão e veja o gamepad responder em tempo real.
-  </p>
 </div>
 
 <div class="card">
@@ -509,31 +523,26 @@
     </div>
 
     <div class="controle">
-      <div class="ombros">
-        <div class="lado">
-          <div class="ombro" id="btn4">L1</div>
-          <div class="ombro" id="btn6">L2</div>
+      <div class="modelo" id="modeloTexto">Aguardando modelo</div>
+
+      <div class="gamepad">
+        <div class="corpo"></div>
+
+        <div class="gatilho gatilho-esquerdo" id="btn6">L2</div>
+        <div class="gatilho gatilho-direito" id="btn7">R2</div>
+
+        <div class="ombro ombro-esquerdo" id="btn4">L1</div>
+        <div class="ombro ombro-direito" id="btn5">R1</div>
+
+        <div class="dpad">
+          <div class="cima" id="btn12">▲</div>
+          <div class="esquerda" id="btn14">◀</div>
+          <div class="direita" id="btn15">▶</div>
+          <div class="baixo" id="btn13">▼</div>
         </div>
 
-        <div class="lado" style="text-align:right;">
-          <div class="ombro" id="btn5">R1</div>
-          <div class="ombro" id="btn7">R2</div>
-        </div>
-      </div>
-
-      <div class="corpo">
-        <div class="grupo">
-          <div class="dpad">
-            <div class="cima" id="btn12">▲</div>
-            <div class="esquerda" id="btn14">◀</div>
-            <div class="direita" id="btn15">▶</div>
-            <div class="baixo" id="btn13">▼</div>
-          </div>
-
-          <div class="stick">
-            <div class="stick-dot" id="stickEsquerdo"></div>
-            <div class="stick-rotulo">L3</div>
-          </div>
+        <div class="stick stick-esquerdo">
+          <div class="stick-dot" id="stickEsquerdo"></div>
         </div>
 
         <div class="centro">
@@ -548,34 +557,18 @@
             <div class="botao-central" id="btn10">L3</div>
             <div class="botao-central" id="btn11">R3</div>
           </div>
-
-          UniTools<br>Gamer
         </div>
 
-        <div class="grupo">
-          <div class="face">
-            <div class="cima" id="btn3">Y</div>
-            <div class="esquerda" id="btn2">X</div>
-            <div class="baixo" id="btn0">A</div>
-            <div class="direita" id="btn1">B</div>
-          </div>
+        <div class="home" id="btn16">⌂</div>
 
-          <div class="stick">
-            <div class="stick-dot" id="stickDireito"></div>
-            <div class="stick-rotulo">R3</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="bloco" style="margin-top:18px;">
-        <div class="bloco-titulo">
-          <span>Botão Home</span>
-          <span>Pressione para testar</span>
+        <div class="stick stick-direito">
+          <div class="stick-dot" id="stickDireito"></div>
         </div>
 
-        <div style="display:flex;justify-content:center;">
-          <div class="botao-central" id="btn16" style="width:52px;height:52px;font-size:15px;">⌂</div>
-        </div>
+        <div class="parte face-y" id="btn3">Y</div>
+        <div class="parte face-x" id="btn2">X</div>
+        <div class="parte face-b" id="btn1">B</div>
+        <div class="parte face-a" id="btn0">A</div>
       </div>
     </div>
 
@@ -604,391 +597,4 @@
       </div>
 
       <div class="vibracao">
-        <input type="range" id="forca" min="0" max="1" step="0.05" value="1">
-        <button id="vibrar">Vibrar</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<footer>
-  <strong>UniTools Gamer</strong> — teste de controles USB pelo navegador.
-</footer>
-
-<script>
-(function () {
-  "use strict";
-
-  const statusEl = document.getElementById("status");
-  const infoEl = document.getElementById("info");
-  const erroEl = document.getElementById("erro");
-  const painelEl = document.getElementById("painel");
-  const botoesEl = document.getElementById("botoes");
-  const eixosEl = document.getElementById("eixos");
-  const totalBotoesEl = document.getElementById("totalBotoes");
-  const totalEixosEl = document.getElementById("totalEixos");
-  const suporteVibracaoEl = document.getElementById("suporteVibracao");
-  const valorModeloEl = document.getElementById("valorModelo");
-  const valorBotoesEl = document.getElementById("valorBotoes");
-  const valorEixosEl = document.getElementById("valorEixos");
-  const valorAtivosEl = document.getElementById("valorAtivos");
-  const forcaEl = document.getElementById("forca");
-  const vibrarEl = document.getElementById("vibrar");
-  const stickEsquerdoEl = document.getElementById("stickEsquerdo");
-  const stickDireitoEl = document.getElementById("stickDireito");
-
-  let controleAtual = null;
-  let botoesCriados = false;
-  let eixosCriados = false;
-
-  function mostrarErro(mensagem) {
-    erroEl.style.display = "block";
-    erroEl.textContent = String(mensagem);
-  }
-
-  function limparErro() {
-    erroEl.style.display = "none";
-    erroEl.textContent = "";
-  }
-
-  function detectarModelo(id) {
-    const texto = (id || "").toLowerCase();
-
-    if (texto.indexOf("xbox") !== -1 || texto.indexOf("xinput") !== -1) {
-      return {
-        nome: "Xbox / XInput",
-        cima: "Y",
-        esquerda: "X",
-        baixo: "A",
-        direita: "B"
-      };
-    }
-
-    if (
-      texto.indexOf("playstation") !== -1 ||
-      texto.indexOf("dualshock") !== -1 ||
-      texto.indexOf("dualsense") !== -1 ||
-      texto.indexOf("sony") !== -1
-    ) {
-      return {
-        nome: "PlayStation / DualShock ou DualSense",
-        cima: "△",
-        esquerda: "□",
-        baixo: "✕",
-        direita: "○"
-      };
-    }
-
-    if (
-      texto.indexOf("nintendo") !== -1 ||
-      texto.indexOf("switch") !== -1 ||
-      texto.indexOf("joy-con") !== -1 ||
-      texto.indexOf("pro controller") !== -1
-    ) {
-      return {
-        nome: "Nintendo Switch",
-        cima: "X",
-        esquerda: "Y",
-        baixo: "B",
-        direita: "A"
-      };
-    }
-
-    return {
-      nome: "Controle USB genérico",
-      cima: "Y",
-      esquerda: "X",
-      baixo: "A",
-      direita: "B"
-    };
-  }
-
-  function criarBotoes(quantidade) {
-    botoesEl.innerHTML = "";
-
-    const nomes = [
-      "A / Cruz", "B / Círculo", "X / Quadrado", "Y / Triângulo",
-      "L1", "R1", "L2", "R2",
-      "Select / Share", "Start / Options", "L3", "R3",
-      "D-Cima", "D-Baixo", "D-Esquerda", "D-Direita",
-      "Home", "Botão 18", "Botão 19", "Botão 20"
-    ];
-
-    for (let i = 0; i < quantidade; i++) {
-      const item = document.createElement("div");
-      item.className = "botao";
-      item.id = "listaBotao" + i;
-
-      const nome = document.createElement("div");
-      nome.textContent = nomes[i] || ("Botão " + (i + 1));
-
-      const valor = document.createElement("span");
-      valor.id = "listaValor" + i;
-      valor.textContent = "0.00";
-
-      item.appendChild(nome);
-      item.appendChild(valor);
-      botoesEl.appendChild(item);
-    }
-
-    totalBotoesEl.textContent = quantidade + " detectados";
-    valorBotoesEl.textContent = quantidade;
-    botoesCriados = true;
-  }
-
-  function criarEixos(quantidade) {
-    eixosEl.innerHTML = "";
-
-    for (let i = 0; i < quantidade; i++) {
-      const linha = document.createElement("div");
-      linha.className = "eixo";
-
-      const nome = document.createElement("span");
-      nome.textContent = "Eixo " + i;
-
-      const medidor = document.createElement("div");
-      medidor.className = "medidor";
-
-      const fill = document.createElement("div");
-      fill.className = "medidor-fill";
-      fill.id = "medidor" + i;
-
-      const valor = document.createElement("span");
-      valor.className = "valor";
-      valor.id = "valorEixo" + i;
-      valor.textContent = "0.00";
-
-      medidor.appendChild(fill);
-      linha.appendChild(nome);
-      linha.appendChild(medidor);
-      linha.appendChild(valor);
-      eixosEl.appendChild(linha);
-    }
-
-    totalEixosEl.textContent = quantidade + " detectados";
-    valorEixosEl.textContent = quantidade;
-    eixosCriados = true;
-  }
-
-  function atualizar() {
-    try {
-      const lista = navigator.getGamepads();
-      let controle = null;
-
-      for (let i = 0; i < lista.length; i++) {
-        if (lista[i]) {
-          controle = lista[i];
-          break;
-        }
-      }
-
-      if (!controle) {
-        controleAtual = null;
-        botoesCriados = false;
-        eixosCriados = false;
-        botoesEl.innerHTML = "";
-        eixosEl.innerHTML = "";
-        painelEl.style.display = "none";
-
-        statusEl.textContent = "Conecte o controle USB e pressione qualquer botão.";
-        statusEl.className = "status vermelho";
-        infoEl.textContent = "Nenhum controle detectado.";
-
-        requestAnimationFrame(atualizar);
-        return;
-      }
-
-      if (controleAtual !== controle.index) {
-        controleAtual = controle.index;
-        botoesCriados = false;
-        eixosCriados = false;
-
-        const modelo = detectarModelo(controle.id);
-
-        document.getElementById("btn0").textContent = modelo.baixo;
-        document.getElementById("btn1").textContent = modelo.direita;
-        document.getElementById("btn2").textContent = modelo.esquerda;
-        document.getElementById("btn3").textContent = modelo.cima;
-
-        valorModeloEl.textContent = modelo.nome;
-
-        painelEl.style.display = "block";
-
-        statusEl.textContent = "Controle detectado.";
-        statusEl.className = "status verde";
-
-        infoEl.innerHTML =
-          "<strong>" + modelo.nome + "</strong><br>" +
-          "Identificação do navegador: " + controle.id + "<br>" +
-          "Índice: " + controle.index + " • " +
-          "Mapeamento: " + (controle.mapping || "não informado");
-
-        suporteVibracaoEl.textContent = controle.vibrationActuator
-          ? "Suportada"
-          : "Não suportada";
-      }
-
-      if (!botoesCriados) {
-        criarBotoes(controle.buttons.length);
-      }
-
-      if (!eixosCriados) {
-        criarEixos(controle.axes.length);
-      }
-
-      let ativos = 0;
-
-      for (let i = 0; i < controle.buttons.length; i++) {
-        const botao = controle.buttons[i];
-        const visual = document.getElementById("btn" + i);
-        const listaBotao = document.getElementById("listaBotao" + i);
-        const listaValor = document.getElementById("listaValor" + i);
-
-        const ativo = botao.pressed || botao.value > 0.05;
-
-        if (ativo) {
-          ativos++;
-        }
-
-        if (visual) {
-          if (ativo) {
-            visual.classList.add("ativo");
-          } else {
-            visual.classList.remove("ativo");
-          }
-        }
-
-        if (listaBotao) {
-          if (ativo) {
-            listaBotao.classList.add("ativo");
-          } else {
-            listaBotao.classList.remove("ativo");
-          }
-        }
-
-        if (listaValor) {
-          listaValor.textContent = botao.value.toFixed(2);
-        }
-      }
-
-      valorAtivosEl.textContent = ativos;
-
-      for (let i = 0; i < controle.axes.length; i++) {
-        const valor = controle.axes[i];
-        const medidor = document.getElementById("medidor" + i);
-        const texto = document.getElementById("valorEixo" + i);
-
-        if (medidor) {
-          medidor.style.width = ((valor + 1) / 2 * 100) + "%";
-        }
-
-        if (texto) {
-          texto.textContent = valor.toFixed(2);
-        }
-      }
-
-      const esquerdoX = controle.axes[0] || 0;
-      const esquerdoY = controle.axes[1] || 0;
-      const direitoX = controle.axes[2] || 0;
-      const direitoY = controle.axes[3] || 0;
-
-      stickEsquerdoEl.style.transform =
-        "translate(" + (esquerdoX * 20) + "px, " + (esquerdoY * 20) + "px)";
-
-      stickDireitoEl.style.transform =
-        "translate(" + (direitoX * 20) + "px, " + (direitoY * 20) + "px)";
-
-    } catch (erro) {
-      mostrarErro("Erro no site:\n" + erro.message);
-    }
-
-    requestAnimationFrame(atualizar);
-  }
-
-  function vibrar() {
-    try {
-      const lista = navigator.getGamepads();
-      let controle = null;
-
-      for (let i = 0; i < lista.length; i++) {
-        if (lista[i]) {
-          controle = lista[i];
-          break;
-        }
-      }
-
-      if (!controle) {
-        statusEl.textContent = "Nenhum controle detectado.";
-        statusEl.className = "status vermelho";
-        return;
-      }
-
-      const atuador = controle.vibrationActuator;
-
-      if (!atuador) {
-        statusEl.textContent = "Este controle não expõe vibração ao navegador.";
-        statusEl.className = "status vermelho";
-        return;
-      }
-
-      const forca = Number(forcaEl.value);
-
-      if (typeof atuador.playEffect === "function") {
-        atuador.playEffect("dual-rumble", {
-          startDelay: 0,
-          duration: 500,
-          weakMagnitude: forca,
-          strongMagnitude: forca
-        });
-
-        statusEl.textContent = "Vibração enviada.";
-        statusEl.className = "status verde";
-        return;
-      }
-
-      if (typeof atuador.pulse === "function") {
-        atuador.pulse(forca, 500);
-        statusEl.textContent = "Vibração enviada pelo modo alternativo.";
-        statusEl.className = "status verde";
-        return;
-      }
-
-      statusEl.textContent = "Este navegador não oferece vibração compatível.";
-      statusEl.className = "status vermelho";
-
-    } catch (erro) {
-      mostrarErro("Erro ao vibrar:\n" + erro.message);
-    }
-  }
-
-  vibrarEl.addEventListener("click", vibrar);
-
-  window.addEventListener("gamepadconnected", function () {
-    limparErro();
-    statusEl.textContent = "Controle conectado.";
-    statusEl.className = "status verde";
-  });
-
-  window.addEventListener("gamepaddisconnected", function () {
-    controleAtual = null;
-    botoesCriados = false;
-    eixosCriados = false;
-    botoesEl.innerHTML = "";
-    eixosEl.innerHTML = "";
-    painelEl.style.display = "none";
-
-    statusEl.textContent = "Controle desconectado.";
-    statusEl.className = "status vermelho";
-    infoEl.textContent = "Nenhum controle detectado.";
-  });
-
-  window.addEventListener("error", function (evento) {
-    mostrarErro("Erro na página:\n" + evento.message);
-  });
-
-  requestAnimationFrame(atualizar);
-})();
-</script>
-
-</body>
-</html>
+        <input type="range" id="forca" m
